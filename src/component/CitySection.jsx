@@ -60,7 +60,7 @@ const CitySection = ({ loading, cities = [] }) => {
                     </div>
 
                     <p
-                      className="font-medium text-sm text-center whitespace-nowrap "
+                      className="font-medium text-sm text-center  "
                       
                       title={label}
                     >

@@ -20,23 +20,19 @@ const HeroSection = () => {
     dispatch(getCitiesThunk());
   }, [dispatch]);
 
-  // ---------------------------------------------------
-  // ✅ FIX: Get all mainCity names based on selected state
-  // ---------------------------------------------------
+  // ✅ Filter cities based on state
   const cityList =
     selectedState !== ""
       ? cities
-        .filter((c) => c.state?._id === selectedState) // match state
-        .map((c) => c.mainCity) // take mainCity field
+          .filter((c) => c.state?._id === selectedState)
+          .map((c) => c.mainCity)
       : [];
 
-  // Slug Generator
+  // ✅ Slug Generator
   const makeSlug = (name) =>
     name?.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]/g, "") || "";
 
-  // ---------------------------------------------------
-  // 🔍 SEARCH HANDLER
-  // ---------------------------------------------------
+  // ✅ Search Handler
   const handleSearch = () => {
     if (!selectedState) {
       alert("Please select a state.");
@@ -51,7 +47,6 @@ const HeroSection = () => {
 
     const stateSlug = makeSlug(stateObj.name);
 
-    // Get any main city row (to use its backend _id as cityId)
     const mainCityRecord = cities.find(
       (c) => c.state?._id === selectedState
     );
@@ -61,7 +56,6 @@ const HeroSection = () => {
       return;
     }
 
-    // If NO city selected → go to STATE PAGE
     if (!selectedCity) {
       navigate(`/city/${stateSlug}`, {
         state: { cityId: mainCityRecord._id },
@@ -69,52 +63,50 @@ const HeroSection = () => {
       return;
     }
 
-    // Redirect with subCity selected
     navigate(`/city/${stateSlug}?subCity=${selectedCity}`, {
       state: { cityId: mainCityRecord._id },
     });
   };
 
-  // ---------------------------------------------------
-  // UI
-  // ---------------------------------------------------
   return (
-    <section className="w-full bg-linear-to-r from-[#00B9BE] to-[#7CC7EC] text-white">
-      <div className="max-w-7xl mx-auto px-4 lg:px-16 py-20 ">
+    <section className="w-full bg-gradient-to-r from-[#00B9BE] to-[#7CC7EC] text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 py-12 sm:py-16 md:py-20">
 
-        <h1 className="text-2xl md:text-5xl lg:text-6xl font-extrabold leading-snug">
+        {/* ✅ HEADINGS */}
+        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
           Welcome to Girls with Wine
         </h1>
 
-        <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-extrabold leading-snug">
+        <h2 className="mt-3 sm:mt-4 text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
           An Indian Classifieds Site
           <br />
-          <span className="md:text-5xl">Featuring call girl Girl Services</span>
+          <span className="text-lg sm:text-2xl md:text-4xl lg:text-5xl">
+            Featuring Call Girl Services
+          </span>
         </h2>
 
-        {/* SEARCH BOX */}
-        <div className="w-full bg-white/20 backdrop-blur-md rounded-xl p-6 mt-10">
+        {/* ✅ SEARCH BOX */}
+        <div className="w-full bg-white/20 backdrop-blur-md rounded-xl p-4 sm:p-6 mt-8 sm:mt-10 shadow-lg">
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
 
-            {/* Category Dropdown */}
-            <select required className="w-full bg-white text-gray-800 px-3 py-3 rounded-md ">
+            {/* Category */}
+            <select className="w-full bg-white text-gray-800 px-3 py-3 rounded-md text-sm sm:text-base">
               <option>Select Category</option>
               <option>Call Girls</option>
               <option>Massage</option>
             </select>
 
-            {/* State Dropdown */}
+            {/* State */}
             <select
-              required
               value={selectedState}
               onChange={(e) => {
                 setSelectedState(e.target.value);
                 setSelectedCity("");
               }}
-              className="w-full bg-white text-gray-800 px-3 py-3 rounded-md"
+              className="w-full bg-white text-gray-800 px-3 py-3 rounded-md text-sm sm:text-base"
             >
               <option value="">Select State</option>
-
               {states?.map((st) => (
                 <option key={st._id} value={st._id}>
                   {st.name}
@@ -122,16 +114,14 @@ const HeroSection = () => {
               ))}
             </select>
 
-            {/* City Dropdown (mainCity names) */}
+            {/* City */}
             <select
-              required
               value={selectedCity}
               onChange={(e) => setSelectedCity(e.target.value)}
               disabled={!selectedState}
-              className="w-full bg-white text-gray-800 px-3 py-3 rounded-md"
+              className="w-full bg-white text-gray-800 px-3 py-3 rounded-md text-sm sm:text-base disabled:opacity-60"
             >
               <option value="">Select City</option>
-
               {cityList.map((city, i) => (
                 <option key={i} value={city}>
                   {city}
@@ -143,13 +133,13 @@ const HeroSection = () => {
             <input
               type="text"
               placeholder="What you are looking for"
-              className="w-full bg-white text-gray-800 px-3 py-3 rounded-md"
+              className="w-full bg-white text-gray-800 px-3 py-3 rounded-md text-sm sm:text-base"
             />
 
-            {/* Button */}
+            {/* Search Button */}
             <button
               onClick={handleSearch}
-              className="bg-white text-black font-semibold px-6 py-3 rounded-md hover:bg-[#A01047] hover:text-white transition cursor-pointer"
+              className="w-full bg-[#A01047] text-white font-semibold px-6 py-3 rounded-md hover:bg-[#A01047] transition cursor-pointer"
             >
               SEARCH
             </button>

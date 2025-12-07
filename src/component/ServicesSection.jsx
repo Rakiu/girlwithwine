@@ -35,63 +35,67 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section className="w-full px-4 py-16 bg-[#E9F7FE]">
+    <section className="w-full bg-[#E9F7FE] px-4 py-12 sm:py-16">
       <div className="max-w-7xl mx-auto">
 
-        {/* Heading */}
-        <h2 className="text-center text-3xl md:text-5xl font-extrabold text-[#A3195B]">
+        {/* ✅ HEADING */}
+        <h2 className="text-center text-2xl sm:text-3xl md:text-5xl font-extrabold text-[#A3195B] leading-tight">
           Search Or Post Your Adult Advertisements
         </h2>
-        <div className="w-24 h-1 bg-[#A3195B] mx-auto mt-2 mb-10"></div>
 
-        {/* Description */}
-        <div className="max-w-5xl mx-auto">
-          <p className="text-center text-gray-700 text-lg md:text-xl leading-relaxed">
-           There is no better place in India for discovering professional escort/call girl talent listings than Girls with Wine.
+        <div className="w-20 sm:w-24 h-1 bg-[#A3195B] mx-auto mt-3 mb-8"></div>
+
+        {/* ✅ DESCRIPTION */}
+        <div className="max-w-5xl mx-auto text-center px-2">
+          <p className="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed">
+            There is no better place in India for discovering professional escort/call girl talent listings than Girls with Wine.
           </p>
 
-          <p className="text-center mt-4 text-gray-700 text-lg md:text-xl leading-relaxed">
+          <p className="mt-4 text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed">
             The platform helps users connect with verified girls in a secure and discreet environment.
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-14">
+        {/* ✅ SERVICE CARDS */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10 mt-12 sm:mt-14">
+
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white border border-gray-300 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition"
+              className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300"
             >
-              {/* IMAGE + ABSOLUTE TITLE */}
+
+              {/* ✅ IMAGE + FLOATING TITLE */}
               <div className="relative">
                 <img
                   src={service.img}
                   alt={service.title}
-                  className="w-full h-64 object-cover"
+                  className="w-full h-52 sm:h-64 object-cover"
                 />
 
-                {/* ABSOLUTE HEADING */}
-                <div className=" w-80 text-center absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-[#A3195B] text-white px-6 py-2 rounded-md shadow-lg text-lg font-semibold">
+                <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-[#A3195B] text-white px-6 py-2 rounded-md shadow-lg text-sm sm:text-base font-semibold whitespace-nowrap">
                   {service.title}
                 </div>
               </div>
 
-              {/* DESCRIPTION */}
-              <p className="p-4 text-gray-700 text-sm leading-relaxed mt-6">
+              {/* ✅ DESCRIPTION */}
+              <p className="p-4 pt-8 sm:pt-10 text-gray-700 text-sm sm:text-base leading-relaxed">
                 {service.description}
               </p>
 
-              {/* CITY LIST */}
-              <ul>
+              {/* ✅ CITY LIST */}
+              <ul className="border-t">
                 {service.cities.map((city, i) => (
                   <li
                     key={i}
-                    className="flex justify-between items-center px-4 py-3 text-sm text-gray-800 hover:bg-gray-100 cursor-pointer transition border-t"
+                    className="flex justify-between items-center px-4 py-3 text-sm sm:text-base text-gray-800 hover:bg-gray-100 cursor-pointer transition"
                   >
-                    {city} <FiChevronRight />
+                    {city}
+                    <FiChevronRight className="text-gray-500" />
                   </li>
                 ))}
               </ul>
+
             </div>
           ))}
         </div>
