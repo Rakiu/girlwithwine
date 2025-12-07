@@ -43,7 +43,7 @@ function App() {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/terms" element={<TermsAndConditions />} />
          <Route path="/privacy" element={<PrivacyPolicy />} />
-         <Route path="/faq" element={<Faqs />} />
+         {/* <Route path="/faq" element={<Faqs />} /> */}
 
           <Route
           path="/admin/all-state"

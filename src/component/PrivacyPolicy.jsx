@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "./common/Footer";
 import Header from "./common/header";
 
-const PrivacyPolicy = ({ lastUpdated = "August 2025" }) => {
+const PrivacyPolicy = ({ lastUpdated = "December 2025" }) => {
   return (
     <>
       <Header />
@@ -27,154 +27,26 @@ const PrivacyPolicy = ({ lastUpdated = "August 2025" }) => {
             "
           >
             <p>
-              This website follows the rules set by Data Protection Legislation to protect the
-              privacy of both users and ad posters. All personal data we collect is handled with
-              strict confidentiality.
+              We are dedicated to protecting the personal information of all users and advertisers who interact with our platform. In order to comply with applicable Data Protection Laws, every piece of data you share with us is managed with strict confidentiality and used only for legitimate operational purposes. While we take full responsibility for safeguarding the information you provide privately, any details an Offeror User chooses to make public on their profile remain under their own control, and the platform cannot be held liable if such openly shared information is accessed or misused by unintended parties. This Privacy Policy may be modified occasionally to align with new legal requirements or regulatory directives, and any important updates will be communicated through revised links or on-site notices.
             </p>
 
             <p>
-              The website administrators follow the Privacy Policy and Terms & Conditions to
-              ensure protection of your data. However, the Offeror User information displayed
-              publicly on their profile is controlled solely by the user themselves.
+              The information we collect may include personal details such as your name, phone number, email address, and identification documents, as well as payment-related data such as your transaction history and purchase records. You may also voluntarily provide additional details like your age, gender, profile images, or other information you choose to share. In some cases, preference-based categories may be collected if you submit them willingly. Technical information may also be gathered automatically, including your IP address, device type, browser information, and cookie data. Along with this, non-identifiable aggregated data may be gathered to help us understand user behavior and improve the performance of our services.
             </p>
 
             <p>
-              If such information is misused or reaches the wrong hands, the company is not
-              responsible for how that publicly posted data is handled.
+            Your personal information is used for several lawful purposes, including enabling account creation, allowing the smooth use of the website, communicating with other users, publishing advertisements, and completing verification requirements. It also helps us process payments, send promotional messages when you have agreed to receive them, enhance our services through analytics, protect the platform from fraud or misuse, and comply with legal obligations or court orders. We obtain this information when you browse the site, create an account, post or respond to an advertisement, contact customer support, or undergo age-verification checks. If you provide information on behalf of someone else, you must ensure they have reviewed this Privacy Policy, agree to its terms, and that you inform us promptly of any changes to their data.
             </p>
 
             <p>
-              This Privacy Policy may change or be updated periodically based on legal
-              requirements or Data Protection Authority directives. Users will be notified through
-              updated links or notices where required.
+             To protect your information, we rely on multiple security measures such as encrypted systems, secure servers, and restricted access controls, ensuring that your data is shielded from unauthorized access. We retain your information only for the duration required for each purpose: account and browsing data may be stored for up to two years of inactivity; advertisement data for up to one year after expiration; verification records for up to one year after account deletion; and transaction records for at least ten years as required by law. Data used for marketing or analytics may be kept for up to two years unless you withdraw consent earlier, while information necessary for legal or compliance purposes may be retained as long as regulations demand.
             </p>
-
-            {/* SECTION 1 */}
-            <h2>1. What Personal Information Do We Collect?</h2>
-
-            <p>“Personal Data” refers to any information that can identify you. This may include:</p>
-
-            <ul>
-              <li><strong>Contact Details:</strong> Name, phone number, email ID, identification details.</li>
-              <li><strong>Payment Data:</strong> Purchase history and transaction information.</li>
-              <li><strong>Other Personal Data:</strong> Gender, age, photos, or anything you submit voluntarily.</li>
-              <li><strong>Special Categories:</strong> Sexual preferences or lifestyle-related information.</li>
-              <li><strong>Usage Data:</strong> IP address, device info, cookies, browser type.</li>
-            </ul>
-
             <p>
-              We may also collect aggregated non-identifiable data for improving user experience
-              and analyzing platform usage patterns.
+              Your information may be accessed only by authorized employees or trusted third-party service providers who support us with essential tasks such as age verification and technical support. You may request a complete list of these external partners at any time. As a user, you have the right to access the information we hold about you, request corrections, withdraw consent, object to certain types of data processing, or file a complaint with our Grievance Officer. All such requests can be made free of charge.
+
             </p>
 
-            {/* SECTION 2 */}
-            <h2>2. How Do We Collect Your Personal Information?</h2>
-
-            <p>Your Personal Data is collected when:</p>
-
-            <ul>
-              <li>You browse or use the website.</li>
-              <li>You register an account.</li>
-              <li>You post an ad or respond to one.</li>
-              <li>You request customer support.</li>
-              <li>Your age verification is performed.</li>
-            </ul>
-
-            <p>
-              If you submit data on someone’s behalf, ensure they have read and agreed to the
-              Privacy Policy. You must also inform us of any updates to your data.
-            </p>
-
-            {/* SECTION 3 */}
-            <h2>3. What Do We Do With Your Personal Information?</h2>
-
-            <p>We process your data for the following lawful purposes:</p>
-
-            <ul>
-              <li><strong>Allowing browsing and registration</strong> on the website.</li>
-              <li><strong>Publishing ads</strong> and letting you respond to ads.</li>
-              <li><strong>Age verification</strong> using external verification tools.</li>
-              <li><strong>Processing orders</strong> and payment-related activities.</li>
-              <li><strong>Marketing and promotional messages</strong> (with your consent).</li>
-              <li><strong>Service improvements</strong> through analytics and user behavior data.</li>
-              <li><strong>Legal protection</strong> in disputes or fraud investigations.</li>
-              <li><strong>Compliance</strong> with court orders and legal obligations.</li>
-            </ul>
-
-            {/* SECTION 4 */}
-            <h2>4. How Do We Protect Your Personal Data?</h2>
-
-            <p>
-              We use multiple security measures—secure servers, encryption, access controls, and
-              industry-standard policies—to protect your Personal Data.
-            </p>
-
-            {/* SECTION 5 */}
-            <h2>5. How Long Do We Store Your Data?</h2>
-
-            <p>We retain your data only for the time necessary for each purpose:</p>
-
-            <ul>
-              <li>Browsing & Registration: Up to 2 years of inactivity.</li>
-              <li>Ad Publishing: Up to 1 year after ad expiration.</li>
-              <li>Age Verification: Up to 1 year after account deletion.</li>
-              <li>Orders & Payments: At least 10 years (legal requirement).</li>
-              <li>Marketing Data: 2 years unless consent withdrawn.</li>
-              <li>Service Improvements & Analytics: 2 years.</li>
-              <li>Legal Defense: As long as needed for legal obligations.</li>
-            </ul>
-
-            {/* SECTION 6 */}
-            <h2>6. Do We Share Your Data With Others?</h2>
-
-            <p>
-              Your data may be accessed by authorized employees or external service providers
-              such as:
-            </p>
-
-            <ul>
-              <li>Payment processors</li>
-              <li>IT service companies</li>
-              <li>Age verification partners</li>
-            </ul>
-
-            <p>
-              You may request the full list of third-party partners by contacting us.
-            </p>
-
-            {/* SECTION 7 */}
-            <h2>7. International Data Transfer</h2>
-
-            <p>
-              Your data may be transferred to other countries. When we do this, we follow legal
-              safeguards such as GDPR Article 46 where applicable.
-            </p>
-
-            {/* SECTION 8 */}
-            <h2>8. Your Rights</h2>
-
-            <p>You have the right to:</p>
-
-            <ul>
-              <li>Access your data</li>
-              <li>Correct inaccurate data</li>
-              <li>Withdraw consent anytime</li>
-              <li>Object to certain processing</li>
-              <li>Make a complaint to our Grievance Officer</li>
-            </ul>
-
-            <p>
-              All rights can be exercised free of charge by contacting us.
-            </p>
-
-            {/* SECTION 9 */}
-            <h2>9. How to File a Complaint</h2>
-
-            <p>
-              If you believe your data is being misused, you may contact our Grievance Officer,
-              approach MeitY, or take legal action. However, we recommend contacting us first so
-              we can resolve the issue.
-            </p>
+           
 
             <p className="mt-8 text-gray-600 italic">
               © 2025 Girls With Wine. All Rights Reserved.

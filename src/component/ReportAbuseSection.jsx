@@ -17,12 +17,11 @@ const ReportAbuseSection = () => {
 
         <ul className="mt-4 space-y-3 text-gray-700 text-[16px] leading-relaxed ml-12">
           <li className="list-disc">
-            You can send an email to <b>report.girlswithwine.com</b> to report for any improper use of images,
-            report of intellectual property (for example telephone, e-mail, names and addresses).
+            If you come across any inappropriate usage of photos or intellectual property (such as names, addresses, phone numbers, or email addresses), you can report it by sending an email to report@girlswithwine.com.
+
           </li>
           <li className="list-disc">
-            You can send an email to <b>report.girlswithwine.com</b> to report for any kind of deemed illegal
-            or any abusive content.
+            If you come across any content that you think is unlawful or harmful, you may report it by sending an email to report@girlswithwine.com.
           </li>
         </ul>
       </div>
@@ -36,7 +35,7 @@ const ReportAbuseSection = () => {
         </div>
 
         <div className="bg-[#a0003c] text-white text-center py-4 px-6 rounded-lg font-semibold text-[15px] md:text-[16px]">
-          Beware of imposters posing as Girls With wine and asking for money. No one from Girls With wine will claim any payment from you.
+          Be wary of con artists requesting money while pretending to be Girls With Wine. Girls With Wine will not pursue payment from you in any way.
         </div>
       </div>
 
@@ -47,16 +46,13 @@ const ReportAbuseSection = () => {
         </h2>
 
         <p className="text-gray-700 text-[16px] leading-relaxed mb-4">
-          The user agrees to follow our Terms and Conditions and gives us feedback about our website and our services.
-          These ads in Girls With Wine were put there by the advertiser on his own and are solely their responsibility.
-          Publishing these kinds of ads doesn’t have to be checked out by ourselves first.
+          By using our site and providing us with feedback, the user is indicating their agreement to our Terms & Conditions. The advertiser took full responsibility for placing these ads in Girls With Wine. It is not necessary for us to personally verify the content of these advertisements before publishing them.
+
+
         </p>
 
         <p className="text-gray-700 text-[16px] leading-relaxed">
-          We are not responsible for the ethics, morality, protection of intellectual property rights, 
-          or possible violations of public or moral values in the profiles created by the advertisers.
-          Girls With Wine lets you publish free online ads and find your way around the websites. It’s not up to
-          us to act as a dealer between the customer and the advertiser.
+         We take no responsibility for the advertisers' profiles' adherence to public or moral standards, their respect of intellectual property rights, or any other ethical or moral issues. You may use Girls With Wine to post free online ads and navigate the web. We will not mediate disputes between advertisers and customers.
         </p>
       </div>
     </div>

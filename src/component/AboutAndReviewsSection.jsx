@@ -16,133 +16,21 @@ const AboutAndReviewsSection = () => {
   const aboutSections = [
     // INTRODUCTION
     {
-      title: "Who We Are",
-      text: `Girls With Wine is India's most trusted and secure escort companionship platform designed for adults looking for elegant, friendly, and emotionally intelligent partners. We believe that companionship is not just physical presence, but a complete experience of comfort, trust, privacy, conversation, and human connection.
-
-We provide a safe space for individuals to meet verified and respectful call girls, independent escorts, and high-profile companions without fear, judgment, or risk. Our priority is your privacy, satisfaction, and a smooth experience across every city in India.`,
+      title: "₹2999 ❤️ Escorts Service, Professional Call Girl A Payment in Cash",
+      text: `If you are looking for sexual pleasure and thrillness, you can get really amazing and stunning attractive call girls / Escorts. You are able to engage our call girls for a very reasonable cost or inexpensive pricing, which is in the range of 2999. Simply put, these are genuine and genuine low rates, and whenever you call us, we will provide you with free home delivery within twenty-five minutes. Cash, online payments, credit cards, and a variety of other payment methods are all accepted. You have arrived at the suitable location. India is a very lovely destination, and many people travel here to take pleasure in this location and discover new things while they are here. It is for this reason that we are offering you authentic call girls and gorgeous chicks. Every one of us is aware that ensuring your contentment is our top concern, which is why we are the most successful call girl agency in India . When you book your hottest female companions, you can do so. They are really charming and sophisticated girls, and they are prepared to provide you with genuine service as well as sexual fun. You can hire our escorts and schedule your appointment with us. Your satisfaction is our first priority, and we will provide you our undivided attention. The sexy call girls in India are available for hire if you are interested in trying something new and exciting with your experience. There are a lot of things that these girls can do to make you pleased and sexier. Therefore, you need only contact our Escort Service.
+`
     },
 
     // MISSION
     {
-      title: "Our Mission & Vision",
-      text: `Our mission is to make companionship safe, respectful, luxurious, and emotionally fulfilling. We aim to build India's most reliable and private network of premium escorts who understand elegance, etiquette, and confidentiality.
-
-Our vision is to change how India views companionship by offering transparent, verified, private, and meaningful interactions between adults who value trust and respect.`,
+      title: "Female employee of an information technology multinational corporation working as an escort for the girls with wine agency",
+      text: `Do you know about the women who are employed by multinational corporations? They are looking to increase their income, which is why a large number of teenagers are working for our girls with wine escort agency. We never compromise her privacy or her identity in any way. As escort girls, our service is seeing an increase in the number of women who hold degrees in information technology and business administration. The confidential nature of these Escorts girls makes them exclusive to five-star hotels, where they are exclusively available for hire. Therefore, if you want to have a night of pleasure , engage high-profile escorts within thirty minutes. Those who belong to the business class place a high value on these ladies because of their refined appearance. They keep their full body figure in good condition. Many young men in college get in touch with us and hire them. They bring her along on their journey and make the most of the experience. For this reason, if you want to experience boredom, you should consider hiring a regular escort service. If you want to add a new dimension to your pleasure, then you should engage these sophisticated female escorts`,
     },
 
     // WHY PEOPLE USE ESCORT SERVICES
     {
-      title: "Why People Choose Escort & Call Girl Services",
-      bullets: [
-        "To enjoy meaningful companionship and intelligent conversations",
-        "To attend business events, dinners, parties, or functions with style",
-        "To reduce stress, loneliness, and emotional burden",
-        "To explore nightlife, clubs, travel, and luxury experiences",
-        "To create memories without long-term relationship pressure",
-        "To have private, respectful, and discreet interactions",
-      ],
-    },
-
-    // MAIN BENEFITS
-    {
-      title: "Benefits of Hiring Escorts in India",
-      bullets: [
-        "Companionship for parties, corporate events, weddings, and VIP gatherings",
-        "Personalized and pressure-free emotional bonding",
-        "Cultural and city tours with knowledgeable partners",
-        "Confidence boost in social and professional environments",
-        "Discreet, private, and secure interaction policy",
-        "Best for travelers, entrepreneurs, NRIs, and working professionals",
-      ],
-    },
-
-    // SERVICES
-    {
-      title: "Escort Services We Provide",
-      bullets: [
-        "VIP & High-Profile Escorts for luxury experiences",
-        "Independent Call Girls with flexible arrangements",
-        "Travel & Vacation Companions inside and outside India",
-        "Dinner & Date companions for romantic or casual evenings",
-        "Nightlife, Party & Clubbing special companionship",
-        "Online / Virtual Companionship via video or chat",
-        "Mature, Elite, and International Escorts",
-      ],
-    },
-
-    // UNIQUE QUALITIES
-    {
-      title: "What Makes Our Escorts Unique?",
-      bullets: [
-        "Beautiful, well-groomed, educated, and well-spoken",
-        "Respectful, friendly, confidential, and emotionally intelligent",
-        "Fluent in English, Hindi, and other regional languages",
-        "Perfect for business meetings, travel, and luxury events",
-        "Knowledge of culture, restaurants, nightlife, and tourism",
-      ],
-    },
-
-    // CITIES
-    {
-      title: "Top Cities We Serve in India",
-      bullets: [
-        "Mumbai Escorts – Bandra, Andheri, Juhu, Marine Drive, Navi Mumbai",
-        "Delhi NCR Escorts – Aerocity, Connaught Place, Saket, Noida, Gurgaon",
-        "Bangalore Escorts – Koramangala, Indiranagar, MG Road, Whitefield",
-        "Hyderabad Escorts – Banjara Hills, Hitech City, Gachibowli",
-        "Chandigarh Escorts – Sector 17, Zirakpur, Mohali, Panchkula",
-        "Goa Escorts – Baga, Calangute, Candolim, Anjuna, Panaji",
-        "Jaipur Escorts – C-Scheme, Malviya Nagar, Ajmer Road",
-        "Pune Escorts – Koregaon Park, Viman Nagar, Hinjawadi",
-        "Ahmedabad Escorts – SG Highway, Navrangpura, Satellite",
-        "Kolkata Escorts – Park Street, Salt Lake, New Town",
-      ],
-    },
-
-    // PRIVACY
-    {
-      title: "Your Privacy & Confidentiality Is Our Priority",
-      bullets: [
-        "Strong data protection and end-to-end encrypted communication",
-        "Secure booking and anonymous payment options",
-        "No data sharing, no screenshots, no identity disclosure",
-        "Strict verification of escorts for your safety",
-        "Safe meeting guidelines and respectful behavior policy",
-      ],
-    },
-
-    // HOW TO BOOK
-    {
-      title: "How to Book Safely",
-      bullets: [
-        "Browse verified profiles based on city, interests & preferences",
-        "Choose the type of companionship you are looking for",
-        "Share your preferred time, location, and meeting style",
-        "Make secure payment through approved channels",
-        "Meet at a safe hotel, public place, or private location",
-      ],
-    },
-
-    // WHO USES THIS PLATFORM
-    {
-      title: "Who Uses Girls With Wine?",
-      bullets: [
-        "Business owners, CEOs, and corporate professionals",
-        "NRIs visiting India short-term",
-        "Travelers exploring Indian cities",
-        "Event attendees, party lovers, and influencers",
-        "People seeking emotional support & meaningful companionship",
-      ],
-    },
-
-    // FINAL SECTION
-    {
-      title: "Final Thoughts",
-      text: `Girls With Wine is not just a platform; it is a modern, safe, elegant, and private world of elite companionship for adults looking for comfort, conversation, and unforgettable experiences.
-
-Whether you are traveling, celebrating, attending a business event, or simply want someone to talk to, our companions make every moment memorable.
-
-Your privacy. Your choice. Your experience — redefined.`,
+      title: "We have over 1600 real and authentic call girls available around the clock, always waiting for you at your doorstep.",
+     text: `Regarding your sexual life, there is no longer any need for you to feel depressed and upset. One of the most stunning cities in India, In this metropolis, everyone wants to experience this night with a female companion who is both delightful and attractive. Call ladies that are capable of providing you with a great deal of love and sexual experience if you are looking for the most stunning and seductive female companion. Where can you find someone who can make your trip and tour more pleasurable and memorable? Therefore, the greatest choice for you would be to hire a call girl . You will receive real services and escort females from our agency during your time with us. You can get the most premium and high-class Call Girl Whatsapp Number from us for your convenience.`,
     },
   ];
 

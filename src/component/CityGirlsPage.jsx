@@ -13,12 +13,12 @@ import CitySection from "./CitySection";
 const CityGirlsPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
- useEffect(() => {
+  useEffect(() => {
     dispatch(getCitiesThunk());
   }, [dispatch]);
   const { cityName } = useParams();        // SEO-friendly name for UI
   const location = useLocation();
-  const {  cities } = useSelector((state) => state.city);
+  const { cities } = useSelector((state) => state.city);
   // 🔥 The cityId is received from navigate() state (NOT from URL)
   const cityId = location.state?.cityId || null;
 
@@ -140,15 +140,11 @@ const CityGirlsPage = () => {
             <span className="text-[#C2185B] capitalize">{finalName} Call Girls</span>
           </h1>
           <p className="text-gray-700 max-w-7xl mx-auto mt-4 text-[15px] leading-relaxed">
-            Girls With Wine agency is a leading classified ads website for escort service in  <span className="font-semibold text-[#B30059] capitalize"> {finalName} </span>,
-            offering premium services for customers seeking pleasure. With a variety of
-            young girls available for night and day sessions, customers can choose from a
-            variety of beauties. The agency guarantees a genuine experience, with clients
-            feeling a sense of pleasure and relaxation. Our
+            One of the top classified advertisements websites for escort services in  <span className="font-semibold text-[#B30059] capitalize"> {finalName} </span>,
+            is Girls With Wine Agency, which provides clients looking for enjoyment with first-rate services. Customers can select from a range of beauty with a selection of young females accessible for day and night sessions. The agency promises a sincere encounter that leaves clients feeling content and at ease. Because of their talent, our
             <span className="font-semibold text-[#B30059] capitalize"> {finalName} call girl </span>
-            beauties are known for their skills, making every second spent with them like
-            heaven. Girls With Wine offers 24/7 services, customizable facilities, and VIP treatment
-            for clients. We aim to fulfil the client's demands to the best of our ability.
+            beauty make every moment spent with them feel like paradise. Girls With Wine provides clients with VIP attention, 24/7 services, and facilities that can be customized. To the best of our ability, we strive to meet the needs of the client.
+
           </p>
         </div>
 
@@ -272,7 +268,7 @@ const CityGirlsPage = () => {
 
       </div>
 
-         <CitySection loading={loading} cities={cities} />
+      <CitySection loading={loading} cities={cities} />
 
       <Footer />
     </>

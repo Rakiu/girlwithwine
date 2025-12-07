@@ -26,8 +26,8 @@ const HeroSection = () => {
   const cityList =
     selectedState !== ""
       ? cities
-          .filter((c) => c.state?._id === selectedState) // match state
-          .map((c) => c.mainCity) // take mainCity field
+        .filter((c) => c.state?._id === selectedState) // match state
+        .map((c) => c.mainCity) // take mainCity field
       : [];
 
   // Slug Generator
@@ -87,8 +87,9 @@ const HeroSection = () => {
         </h1>
 
         <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-extrabold leading-snug">
-          Girls with Wine Classified Ads Website for <br />
-          <span className="md:text-5xl">Escort Services in India</span>
+          An Indian Classifieds Site
+          <br />
+          <span className="md:text-5xl">Featuring call girl Girl Services</span>
         </h2>
 
         {/* SEARCH BOX */}

@@ -45,16 +45,13 @@ const ServicesSection = () => {
         <div className="w-24 h-1 bg-[#A3195B] mx-auto mt-2 mb-10"></div>
 
         {/* Description */}
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <p className="text-center text-gray-700 text-lg md:text-xl leading-relaxed">
-            There is no better place to be in India, as far as listings of professional escort services
-            are concerned, than Girls with Wine. It assists people in finding great partners in a safe and anonymous
-            environment.
+           There is no better place in India for discovering professional escort/call girl talent listings than Girls with Wine.
           </p>
 
           <p className="text-center mt-4 text-gray-700 text-lg md:text-xl leading-relaxed">
-            Whether you want an eye-candy date for an event or a relaxing place to hook up, Girls with Wine helps
-            create remarkable memories while maintaining privacy and quality.
+            The platform helps users connect with verified girls in a secure and discreet environment.
           </p>
         </div>
 
