@@ -441,8 +441,8 @@ const GirlDetailsPage = () => {
                             href={`https://wa.me/91${cityData.whatsappNumber}`}
                             target="_blank"
                             onClick={(e) => e.stopPropagation()}
-                            className="px-4 py-2 bg-[#25D366] text-white rounded-md 
-                             text-[14px] font-medium"
+                            className="px-2 py-2 bg-[#25D366] text-white rounded-md 
+                             text-[10px] font-medium"
                           >
                             WhatsApp
                           </a>
@@ -452,8 +452,8 @@ const GirlDetailsPage = () => {
                           <a
                             href={`tel:91${cityData.phoneNumber}`}
                             onClick={(e) => e.stopPropagation()}
-                            className="px-4 py-2 bg-[#B30059] text-white rounded-md 
-                             text-[14px] font-medium"
+                            className="px-2 py-2 bg-[#B30059] text-white rounded-md 
+                             text-[10px] font-medium"
                           >
                             Call Now
                           </a>

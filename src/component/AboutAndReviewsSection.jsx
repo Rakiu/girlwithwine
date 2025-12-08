@@ -42,7 +42,7 @@ const AboutAndReviewsSection = () => {
         </h2>
 
         {/* ✅ CONTENT */}
-        <div className="max-w-5xl mx-auto bg-white p-4 sm:p-6 text-left leading-relaxed">
+        <div className="max-w-7xl mx-auto bg-white p-4 sm:p-6 text-left leading-relaxed">
           {aboutSections.map((sec, i) => (
             <div key={i} className="mb-10">
 

@@ -208,7 +208,7 @@ const CityGirlsPage = () => {
                               onClick={(e) => e.stopPropagation()}
                               target="_blank"
                               href={createWhatsAppURL(finalName, wp)}
-                              className="px-5 py-2 bg-[#25D366] text-white text-[16px] rounded-md"
+                              className="px-2 py-2 bg-[#25D366] text-white text-[10px] rounded-md "
                             >
                               WhatsApp
                             </a>
@@ -218,7 +218,7 @@ const CityGirlsPage = () => {
                             <a
                               onClick={(e) => e.stopPropagation()}
                               href={`tel:91${call}`}
-                              className="px-5 py-2 bg-[#B30059] text-white text-[16px] rounded-md"
+                              className="px-2 py-2 bg-[#B30059] text-white text-[10px] rounded-md"
                             >
                               Call Us
                             </a>
