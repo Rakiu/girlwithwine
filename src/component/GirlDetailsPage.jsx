@@ -327,12 +327,12 @@ const GirlDetailsPage = () => {
               {singleGirl.age} Years | {cityData.mainCity || "Unknown City"}
             </p>
 
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-[#B30059]">
+            <h1 className="text-2xl sm:text-4xl font-extrabold text-[#B30059]">
               {shortHeading}
             </h1>
 
             {singleGirl.priceDetails && (
-              <p className="mt-3 text-[#34A853] text-lg font-semibold">
+              <p className="mt-3 text-[#34A853] text-[15px] lg:text-[18px] font-semibold">
                 {singleGirl.priceDetails}
               </p>
             )}
@@ -415,12 +415,12 @@ const GirlDetailsPage = () => {
                     <div className="flex flex-col justify-between w-full">
 
                       {/* HEADING */}
-                      <h3 className="text-[18px] font-bold text-[#B30059] leading-tight line-clamp-2">
+                      <h3 className=" text-[10px] lg:text-[20px] font-bold text-[#B30059] leading-tight line-clamp-2">
                         {girl.heading}
                       </h3>
 
                       {/* DESCRIPTION */}
-                      <p className="text-[14px] text-gray-700 mt-1 line-clamp-2">
+                      <p className=" text-[10px]  lg:text-[15px] text-gray-700 mt-1 line-clamp-2">
                         {girl.description}
                       </p>
 

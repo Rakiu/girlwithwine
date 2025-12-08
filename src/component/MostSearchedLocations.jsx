@@ -152,7 +152,7 @@ const MostSearchedLocations = () => {
                     </h3>
 
                     <ul className="mt-4 text-gray-800 flex-1 border-t pt-2 overflow-y-auto">
-                      {item.allMainCities.slice(0, 6).map((city, idx) => (
+                      {item.allMainCities.slice(0, 4).map((city, idx) => (
                         <li
                           key={idx}
                           onClick={() =>
@@ -167,6 +167,7 @@ const MostSearchedLocations = () => {
                       ))}
                     </ul>
 
+
                     {/* ✅ FINAL FIX: YAHAN SAME cityId JAYEGA */}
                     <div className="mt-4 text-center">
                       <button
@@ -175,7 +176,7 @@ const MostSearchedLocations = () => {
                             state: { cityId: item.cityId }, // ✅ यही CityGirlsPage use karega
                           })
                         }
-                        className="border px-6 py-2 rounded-full text-sm font-medium text-[#A3195B] hover:bg-[#A3195B] hover:text-white transition"
+                        className="border px-6 py-2 rounded-full text-sm font-medium text-[#A3195B] hover:bg-[#A3195B] hover:text-white transition flex items-center gap-2 mx-auto"
                       >
                         View State <FiChevronRight />
                       </button>

@@ -135,7 +135,7 @@ const CityGirlsPage = () => {
 
         {/* ---------------- PAGE HEADING ---------------- */}
         <div className="pt-10 text-center max-w-7xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-[#B30059]">
+          <h1 className="text-3xl sm:text-5xl font-extrabold text-[#B30059]">
             Enjoy your private Moments with our Beautiful{" "}
             <span className="text-[#C2185B] capitalize">{finalName} Call Girls</span>
           </h1>
@@ -183,17 +183,17 @@ const CityGirlsPage = () => {
                       <div className="flex flex-col justify-between w-full">
 
                         {/* HEADING */}
-                        <h3 className="text-[20px] font-bold text-[#B30059] leading-tight">
+                        <h3 className=" text-[10px] lg:text-[20px] font-bold text-[#B30059] leading-tight">
                           {replaceCityName(girl.heading, finalName)}
                         </h3>
 
                         {/* DESCRIPTION */}
-                        <p className="text-[15px] text-gray-700 mt-1 leading-snug line-clamp-2">
+                        <p className=" text-[10px]  lg:text-[15px] text-gray-700 mt-1 leading-snug line-clamp-2">
                           {replaceCityName(girl.description, finalName)}
                         </p>
 
                         {/* AGE + CATEGORY ROW */}
-                        <div className="flex flex-wrap gap-3 text-[15px] mt-3 font-semibold text-[#B30059]">
+                        <div className="flex flex-wrap gap-3 text-[10px] lg:text-[15px] mt-3 font-semibold text-[#B30059]">
                           {girl.age && <span>{girl.age} Years</span>}
                           <span className="text-gray-400">|</span>
                           <span>Call Girls</span>
