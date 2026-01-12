@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { FiMenu, FiX, FiMap, FiMapPin, FiUsers, FiMail, FiLogOut } from "react-icons/fi";
+import {
+  FiMenu,
+  FiX,
+  FiMap,
+  FiMapPin,
+  FiUsers,
+  FiMail,
+  FiLogOut,
+} from "react-icons/fi";
 
 const AdminLayout = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [logoutPopup, setLogoutPopup] = useState(false);
   const navigate = useNavigate();
 
-  // Logout
   const handleLogout = () => {
     localStorage.removeItem("adminToken");
     setLogoutPopup(false);
@@ -15,151 +22,134 @@ const AdminLayout = ({ children }) => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100 overflow-hidden">
+    <div className="bg-gray-100 min-h-screen">
 
-      {/* DESKTOP TOP BAR */}
-      <div className="hidden md:flex fixed w-full top-0 left-0 bg-white shadow-md z-30 px-6 py-4 items-center justify-between">
-        <h1 className="text-2xl font-semibold text-gray-700">Admin Panel</h1>
+      {/* ================= TOP BAR ================= */}
+      {/* Desktop */}
+      <div className="hidden md:flex fixed top-0 left-0 w-full h-[72px] bg-white shadow z-30 px-6 items-center">
+        <h1 className="text-2xl font-semibold text-gray-700">
+          Admin Panel
+        </h1>
       </div>
 
-      {/* MOBILE TOP BAR */}
-      <div className="md:hidden fixed w-full top-0 left-0 bg-pink-600 text-white flex justify-between items-center p-4 shadow-lg z-30">
-        <h1 className="text-xl font-semibold">Girls Panel</h1>
+      {/* Mobile */}
+      <div className="md:hidden fixed top-0 left-0 w-full h-[64px] bg-pink-600 text-white flex items-center justify-between px-4 z-30 shadow">
+        <h1 className="text-lg font-semibold">Girls Panel</h1>
         <button onClick={() => setIsOpen(true)}>
-          <FiMenu size={28} />
+          <FiMenu size={26} />
         </button>
       </div>
 
-      {/* SIDEBAR */}
+      {/* ================= SIDEBAR ================= */}
       <aside
-        className={`fixed md:static top-0 left-0 h-full w-64 bg-gradient-to-b from-pink-600 to-pink-400 text-white p-6 flex flex-col shadow-xl 
-        transform transition-transform duration-300 z-40
-        ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
+        className={`
+          fixed
+          top-[64px] md:top-[72px]
+          left-0
+          h-[calc(100vh-64px)] md:h-[calc(100vh-72px)]
+          w-64
+          bg-gradient-to-b from-pink-600 to-pink-400
+          text-white
+          p-6
+          z-40
+          overflow-y-auto
+          transform transition-transform duration-300
+          ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+        `}
       >
-        {/* Close - Mobile */}
+        {/* Close Button - Mobile */}
         <button
-          className="md:hidden absolute top-4 right-4 text-white"
+          className="md:hidden absolute top-4 right-4"
           onClick={() => setIsOpen(false)}
         >
           <FiX size={28} />
         </button>
 
-        {/* Header */}
-        <h1 className="text-3xl font-bold mb-10 tracking-wide text-center">
+        {/* Logo */}
+        <h1 className="text-3xl font-bold mb-10 text-center">
           Girls
         </h1>
 
         {/* Navigation */}
-        <nav className="flex flex-col gap-3 font-medium text-lg">
-
-          <NavLink
-            to="/admin/all-state"
-            className={({ isActive }) =>
-              `px-4 py-2 rounded-md flex items-center gap-3 transition ${
-                isActive
-                  ? "bg-white text-pink-600 font-semibold shadow-md"
-                  : "hover:bg-pink-300 hover:shadow"
-              }`
-            }
-          >
-            <FiMap size={20} /> State
-          </NavLink>
-
-          <NavLink
-            to="/admin/all-cities"
-            className={({ isActive }) =>
-              `px-4 py-2 rounded-md flex items-center gap-3 transition ${
-                isActive
-                  ? "bg-white text-pink-600 font-semibold shadow-md"
-                  : "hover:bg-pink-300 hover:shadow"
-              }`
-            }
-          >
-            <FiMapPin size={20} /> City
-          </NavLink>
-
-          <NavLink
-            to="/admin/model-girl"
-            className={({ isActive }) =>
-              `px-4 py-2 rounded-md flex items-center gap-3 transition ${
-                isActive
-                  ? "bg-white text-pink-600 font-semibold shadow-md"
-                  : "hover:bg-pink-300 hover:shadow"
-              }`
-            }
-          >
-            <FiUsers size={20} /> Model Girl
-          </NavLink>
-
-          <NavLink
-            to="/admin/all-contacts"
-            className={({ isActive }) =>
-              `px-4 py-2 rounded-md flex items-center gap-3 transition ${
-                isActive
-                  ? "bg-white text-pink-600 font-semibold shadow-md"
-                  : "hover:bg-pink-300 hover:shadow"
-              }`
-            }
-          >
-            <FiMail size={20} /> Contact
-          </NavLink>
+        <nav className="flex flex-col gap-3 font-medium">
+          {[
+            { to: "/admin/all-state", icon: <FiMap />, label: "State" },
+            { to: "/admin/all-cities", icon: <FiMapPin />, label: "City" },
+            { to: "/admin/model-girl", icon: <FiUsers />, label: "Model Girl" },
+            { to: "/admin/all-contacts", icon: <FiMail />, label: "Contact" },
+          ].map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              onClick={() => setIsOpen(false)}
+              className={({ isActive }) =>
+                `px-4 py-2 rounded-md flex items-center gap-3 transition ${
+                  isActive
+                    ? "bg-white text-pink-600 font-semibold shadow"
+                    : "hover:bg-pink-300"
+                }`
+              }
+            >
+              {item.icon}
+              {item.label}
+            </NavLink>
+          ))}
         </nav>
 
-        {/* Logout Button */}
+        {/* Logout */}
         <div className="mt-auto pt-10">
           <button
             onClick={() => setLogoutPopup(true)}
-            className="w-full bg-white text-pink-600 font-semibold py-2 rounded-md shadow hover:bg-gray-100 transition flex items-center justify-center gap-2"
+            className="w-full bg-white text-pink-600 font-semibold py-2 rounded-md shadow hover:bg-gray-100 flex items-center justify-center gap-2"
           >
-            <FiLogOut size={18} /> Logout
+            <FiLogOut size={18} />
+            Logout
           </button>
         </div>
       </aside>
 
-      {/* MAIN CONTENT */}
-      <main className="flex-1  h-full overflow-auto">
+      {/* ================= MAIN CONTENT ================= */}
+      <main
+        className="
+          pt-[64px] md:pt-[72px]
+          md:ml-64
+          p-4 md:p-6
+          min-h-screen
+        "
+      >
         {children}
       </main>
 
-      {/* LOGOUT POPUP — MATCHED TO IMAGE */}
+      {/* ================= LOGOUT MODAL ================= */}
       {logoutPopup && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 backdrop-blur-sm">
-          <div className="bg-white w-[420px] rounded-2xl p-8 shadow-2xl text-center">
-
-            {/* Title */}
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+          <div className="bg-white w-[420px] rounded-2xl p-8 text-center shadow-xl">
             <h2 className="text-2xl font-bold text-gray-800">
-              Are you sure you want to log out?
+              Are you sure?
             </h2>
-
-            {/* Subtitle */}
             <p className="text-gray-500 mt-2">
-              You’ll be returned to the login screen.
+              You will be logged out.
             </p>
 
-            {/* Icon Circle */}
             <div className="flex justify-center my-6">
-              <div className="w-28 h-28 bg-red-100 rounded-full flex items-center justify-center">
-                <FiLogOut size={48} className="text-red-500" />
+              <div className="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center">
+                <FiLogOut size={40} className="text-red-500" />
               </div>
             </div>
 
-            {/* Buttons */}
-            <div className="flex justify-center gap-4 mt-4">
-
+            <div className="flex justify-center gap-4">
               <button
                 onClick={() => setLogoutPopup(false)}
-                className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 font-medium"
+                className="px-6 py-2 border rounded-lg"
               >
                 Cancel
               </button>
-
               <button
                 onClick={handleLogout}
-                className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-semibold"
+                className="px-6 py-2 bg-red-600 text-white rounded-lg"
               >
                 Logout
               </button>
-
             </div>
           </div>
         </div>
