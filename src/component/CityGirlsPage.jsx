@@ -13,36 +13,59 @@
 // const CityGirlsPage = () => {
 //   const dispatch = useDispatch();
 //   const navigate = useNavigate();
-//   useEffect(() => {
-//     dispatch(getCitiesThunk());
-//   }, [dispatch]);
-//   const { cityName } = useParams();        // SEO-friendly name for UI
 //   const location = useLocation();
-//   const { cities } = useSelector((state) => state.city);
-//   // 🔥 The cityId is received from navigate() state (NOT from URL)
-//   const cityId = location.state?.cityId || null;
+//   const { cityName } = useParams(); // slug from URL
+
+//   const { cities, singleCity } = useSelector((state) => state.city);
+//   const { cityGirls = [], loading } = useSelector((s) => s.girls);
+
+//   const cityIdFromState = location.state?.cityId || null;
 
 //   const queryParams = new URLSearchParams(location.search);
 //   const subCity = queryParams.get("subCity");
 
-//   const { cityGirls = [], loading } = useSelector((s) => s.girls);
-//   const { singleCity } = useSelector((s) => s.city);
-
+//   const [resolvedCityId, setResolvedCityId] = useState(null);
 //   const [searchText, setSearchText] = useState("");
 
-//   /* -------------------- FETCH DATA -------------------- */
+//   /* ---------------- FETCH ALL CITIES ---------------- */
 //   useEffect(() => {
-//     // ❌ Do NOT fetch with cityName
-//     // ✅ Backend ONLY understands cityId
-//     if (!cityId) return;
+//     dispatch(getCitiesThunk());
+//   }, [dispatch]);
 
-//     dispatch(getCityByIdThunk(cityId));
-//     dispatch(getGirlsByCityThunk(cityId));
-//   }, [cityId, dispatch]);
+//   /* ---------------- RESOLVE CITY ID ---------------- */
+//   useEffect(() => {
+//     if (cityIdFromState) {
+//       setResolvedCityId(cityIdFromState);
+//       return;
+//     }
 
-//   /* -------------------- FORMAT TEXT -------------------- */
-//   const replaceCityName = (text = "", cityName = "") =>
-//     String(text).replace(/{{cityName}}/g, cityName);
+//     if (!cityName || !Array.isArray(cities)) return;
+
+//     const normalize = (str = "") =>
+//       str.toLowerCase().replace(/\s+/g, "-");
+
+//     const matchedCity = cities.find(
+//       (c) =>
+//         normalize(c.mainCity) === normalize(cityName) ||
+//         normalize(c.name) === normalize(cityName)
+//     );
+
+//     if (matchedCity?._id) {
+//       setResolvedCityId(matchedCity._id);
+//     }
+//   }, [cityIdFromState, cityName, cities]);
+
+//   /* ---------------- FETCH CITY + GIRLS ---------------- */
+//   useEffect(() => {
+//     if (!resolvedCityId) return;
+
+//     dispatch(getCityByIdThunk(resolvedCityId));
+//     dispatch(getGirlsByCityThunk(resolvedCityId));
+//   }, [resolvedCityId, dispatch]);
+
+//   /* ---------------- HELPERS ---------------- */
+//   const replaceCityName = (text = "", name = "") =>
+//     String(text).replace(/{{cityName}}/gi, name);
 
 //   const createWhatsAppURL = (cityName, number) => {
 //     const num = String(number || "").replace(/[^0-9]/g, "");
@@ -52,7 +75,7 @@
 //     )}`;
 //   };
 
-//   /* -------------------- SEARCH FILTER -------------------- */
+//   /* ---------------- SEARCH FILTER ---------------- */
 //   const filteredGirls = cityGirls.filter((girl) => {
 //     const txt = searchText.toLowerCase();
 //     return (
@@ -62,47 +85,77 @@
 //     );
 //   });
 
-//   /* -------------------- CITY DATA -------------------- */
+//   /* ---------------- CITY DATA ---------------- */
 //   const cityObj = singleCity || {};
 
 //   let matchedLocalArea = null;
-
 //   if (subCity && Array.isArray(cityObj?.localAreas)) {
 //     matchedLocalArea = cityObj.localAreas.find(
 //       (a) => a.name.toLowerCase() === subCity.toLowerCase()
 //     );
 //   }
 
-//   const finalName = subCity
-//     ? cityObj?.state?.name || ""
-//     : matchedLocalArea?.name || cityObj?.mainCity || "";
+//   const finalName =
+//     matchedLocalArea?.name ||
+//     cityObj?.mainCity ||
+//     cityObj?.state?.name ||
+//     "";
+
+//   /* ---------------- TEXT CONTENT ---------------- */
+//   const cityHeading =
+//     cityObj?.heading ||
+//     `Enjoy your private moments with our beautiful {{cityName}} call girls`;
+
+//   const citySubDescription =
+//     cityObj?.subDescription ||
+//     `One of the top classified advertisement websites for escort services in {{cityName}}.`;
 
 //   const finalDescription =
 //     matchedLocalArea?.description ||
 //     cityObj?.description ||
 //     `<p>No description available for <strong>${finalName}</strong>.</p>`;
 
+//   /* ---------------- SEO ---------------- */
+//   useEffect(() => {
+//     if (!finalName) return;
+
+//     const seoTitle = replaceCityName(cityHeading, finalName);
+//     const seoDescription = replaceCityName(
+//       citySubDescription,
+//       finalName
+//     ).replace(/<[^>]*>?/gm, "");
+
+//     document.title = seoTitle;
+
+//     let metaDesc = document.querySelector("meta[name='description']");
+//     if (!metaDesc) {
+//       metaDesc = document.createElement("meta");
+//       metaDesc.setAttribute("name", "description");
+//       document.head.appendChild(metaDesc);
+//     }
+//     metaDesc.setAttribute("content", seoDescription);
+//   }, [finalName, cityHeading, citySubDescription]);
+
 //   const showRightSidebar = searchText.trim() === "";
 
-//   /* -------------------- UI -------------------- */
+//   /* ---------------- UI ---------------- */
 //   return (
 //     <>
 //       <Header />
 
 //       <div className="px-4 sm:px-6 lg:px-8">
 
-//         {/* ---------------- BREADCRUMB ---------------- */}
+//         {/* -------- BREADCRUMB -------- */}
 //         <div className="bg-gray-50 py-3 mt-6 rounded-md px-4 flex flex-col sm:flex-row sm:justify-between gap-3 shadow-sm">
 //           <div className="text-sm text-gray-600 flex items-center gap-1 flex-wrap">
-//             <span className="text-[#C2185B] font-semibold cursor-pointer">Home</span>
+//             <span className="text-[#C2185B] font-semibold">Home</span>
 //             <span>/</span>
-
-//             <span className="text-[#C2185B] font-semibold cursor-pointer">Call-Girls</span>
+//             <span className="text-[#C2185B] font-semibold">Call-Girls</span>
 
 //             {finalName && (
 //               <>
 //                 <span>/</span>
-//                 <span className="text-[#C2185B] capitalize font-semibold cursor-pointer">
+//                 <span className="text-[#C2185B] capitalize font-semibold">
 //                   {finalName}
 //                 </span>
 //               </>
@@ -111,7 +164,7 @@
 //             {subCity && (
 //               <>
 //                 <span>/</span>
-//                 <span className="text-[#C2185B] capitalize font-semibold cursor-pointer">
+//                 <span className="text-[#C2185B] capitalize font-semibold">
 //                   {subCity}
 //                 </span>
 //               </>
@@ -127,36 +180,32 @@
 //               onChange={(e) => setSearchText(e.target.value)}
 //               className="border border-gray-300 rounded-l-full px-4 py-2 w-full sm:w-72 text-sm"
 //             />
-//             <button className="bg-[#C2185B] px-4 rounded-r-full flex items-center text-white">
+//             <button className="bg-[#C2185B] px-4 rounded-r-full text-white">
 //               <CiSearch className="text-2xl" />
 //             </button>
 //           </div>
 //         </div>
 
-//         {/* ---------------- PAGE HEADING ---------------- */}
+//         {/* -------- PAGE HEADING -------- */}
 //         <div className="pt-10 text-center max-w-7xl mx-auto">
 //           <h1 className="text-4xl sm:text-5xl font-extrabold text-[#B30059]">
-//             Enjoy your private Moments with our Beautiful{" "}
-//             <span className="text-[#C2185B] capitalize">{finalName} Call Girls</span>
+//             {replaceCityName(cityHeading, finalName)}
 //           </h1>
-//           <p className="text-gray-700 max-w-7xl mx-auto mt-4 text-[15px] leading-relaxed">
-//             One of the top classified advertisements websites for escort services in  <span className="font-semibold text-[#B30059] capitalize"> {finalName} </span>,
-//             is Girls With Wine Agency, which provides clients looking for enjoyment with first-rate services. Customers can select from a range of beauty with a selection of young females accessible for day and night sessions. The agency promises a sincere encounter that leaves clients feeling content and at ease. Because of their talent, our
-//             <span className="font-semibold text-[#B30059] capitalize"> {finalName} call girl </span>
-//             beauty make every moment spent with them feel like paradise. Girls With Wine provides clients with VIP attention, 24/7 services, and facilities that can be customized. To the best of our ability, we strive to meet the needs of the client.
 
+//           <p className="text-gray-700 mt-4 text-[15px]">
+//             {replaceCityName(citySubDescription, finalName)}
 //           </p>
 //         </div>
 
-//         {/* ---------------- CONTENT AREA ---------------- */}
-//         <div className="max-w-7xl mx-auto mt-10 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8 ">
+//         {/* -------- CONTENT -------- */}
+//         <div className="max-w-7xl mx-auto mt-10 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
 
-//           {/* ---------------- GIRL LIST ---------------- */}
+//           {/* -------- GIRL LIST -------- */}
 //           <div>
 //             {loading ? (
 //               <p className="text-center py-10">Loading...</p>
-//             ) : filteredGirls.length > 0 ? (
-//               <div className="space-y-5 ">
+//             ) : filteredGirls.length ? (
+//               <div className="space-y-5">
 //                 {filteredGirls.map((girl) => {
 //                   const wp = girl.whatsappNumber || cityObj?.whatsappNumber;
 //                   const call = girl.phoneNumber || cityObj?.phoneNumber;
@@ -165,81 +214,78 @@
 //                     <div
 //                       key={girl._id}
 //                       onClick={() =>
-//                         navigate(`/girl/${girl.name.replace(/\s+/g, "-").toLowerCase()}`, {
-//                           state: { girlId: girl._id },
-//                         })
+//                         navigate(
+//                           `/girl/${girl.name
+//                             .replace(/\s+/g, "-")
+//                             .toLowerCase()}`,
+//                           { state: { girlId: girl._id } }
+//                         )
 //                       }
-//                       className="cursor-pointer bg-white rounded-xl p-4 shadow-sm hover:shadow-md 
-//              transition-all border border-gray-200 flex gap-4"
+//                       className="cursor-pointer bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition border flex gap-4"
 //                     >
-//                       {/* IMAGE */}
 //                       <img
 //                         src={girl.imageUrl}
 //                         alt={girl.name}
 //                         className="w-24 h-24 sm:w-40 sm:h-40 object-cover rounded-xl"
 //                       />
 
-//                       {/* RIGHT SIDE CONTENT */}
 //                       <div className="flex flex-col justify-between w-full">
+//                         <div>
+//                           <h3 className="text-[20px] font-bold text-[#B30059]">
+//                             {replaceCityName(girl.heading, finalName)}
+//                           </h3>
 
-//                         {/* HEADING */}
-//                         <h3 className="text-[20px] font-bold text-[#B30059] leading-tight">
-//                           {replaceCityName(girl.heading, finalName)}
-//                         </h3>
+//                           <p className="text-[15px] text-gray-700 mt-1 line-clamp-2">
+//                             {replaceCityName(girl.description, finalName)}
+//                           </p>
 
-//                         {/* DESCRIPTION */}
-//                         <p className="text-[15px] text-gray-700 mt-1 leading-snug line-clamp-2">
-//                           {replaceCityName(girl.description, finalName)}
-//                         </p>
-
-//                         {/* AGE + CATEGORY ROW */}
-//                         <div className="flex flex-wrap gap-3 text-[15px] mt-3 font-semibold text-[#B30059]">
-//                           {girl.age && <span>{girl.age} Years</span>}
-//                           <span className="text-gray-400">|</span>
-//                           <span>Call Girls</span>
-//                           <span className="text-gray-400">|</span>
-//                           <span>{finalName}</span>
+//                           <div className="flex flex-wrap gap-3 text-[15px] mt-3 font-semibold text-[#B30059]">
+//                             {girl.age && <span>{girl.age} Years</span>}
+//                             <span>|</span>
+//                             <span>Call Girls</span>
+//                             <span>|</span>
+//                             <span>{finalName}</span>
+//                           </div>
 //                         </div>
 
-//                         {/* BUTTONS */}
 //                         <div className="flex gap-3 mt-4 justify-end">
 //                           {wp && (
 //                             <a
 //                               onClick={(e) => e.stopPropagation()}
-//                               target="_blank"
 //                               href={createWhatsAppURL(finalName, wp)}
-//                               className="px-2 py-2 bg-[#25D366] text-white text-[10px] rounded-md "
+//                               target="_blank"
+//                               rel="noreferrer"
+//                               className="px-3 py-2 bg-[#25D366] text-white text-xs rounded-md"
 //                             >
 //                               WhatsApp
 //                             </a>
 //                           )}
-
 //                           {call && (
 //                             <a
 //                               onClick={(e) => e.stopPropagation()}
 //                               href={`tel:91${call}`}
-//                               className="px-2 py-2 bg-[#B30059] text-white text-[10px] rounded-md"
+//                               className="px-3 py-2 bg-[#B30059] text-white text-xs rounded-md"
 //                             >
 //                               Call Us
 //                             </a>
 //                           )}
 //                         </div>
-
 //                       </div>
 //                     </div>
-
 //                   );
 //                 })}
 //               </div>
 //             ) : (
-//               <p className="text-center text-gray-500 py-10">No profiles found.</p>
+//               <p className="text-center text-gray-500 py-10">
+//                 No profiles found.
+//               </p>
 //             )}
 //           </div>
 
-//           {/* ---------------- SIDEBAR ---------------- */}
+//           {/* -------- SIDEBAR -------- */}
 //           {showRightSidebar && (
 //             <div className="hidden lg:block">
-//               <div className="bg-white shadow-md rounded-xl p-5 border border-gray-100">
+//               <div className="bg-white shadow-md rounded-xl p-5 border">
 //                 <h3 className="text-center bg-[#B30059] text-white py-2 rounded-lg text-sm font-bold">
 //                   Ads in {cityObj?.state?.name}
 //                 </h3>
@@ -256,27 +302,22 @@
 //           )}
 //         </div>
 
-//         {/* ---------------- CITY DESCRIPTION ---------------- */}
+//         {/* -------- CITY DESCRIPTION -------- */}
 //         <div
-//           className="md:mt-20 mt-5 mb-5 md:mb-14 
-//              border-t  border-gray-300 
-//              text-gray-700 text-[14px] pb-4 max-w-7xl mx-auto"
+//           className="md:mt-20 mt-6 mb-10 border-t pt-6 text-gray-700 text-[14px] max-w-7xl mx-auto"
 //           dangerouslySetInnerHTML={{
 //             __html: replaceCityName(finalDescription, finalName),
 //           }}
 //         />
-
 //       </div>
 
 //       <CitySection loading={loading} cities={cities} />
-
 //       <Footer />
 //     </>
 //   );
 // };
 
 // export default CityGirlsPage;
-
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -290,33 +331,81 @@ import Header from "./common/header";
 import Footer from "./common/Footer";
 import CitySection from "./CitySection";
 
+/* ---------------- SKELETON CARD ---------------- */
+const GirlCardSkeleton = () => (
+  <div className="bg-white rounded-xl p-4 shadow-sm border flex gap-4 animate-pulse">
+    <div className="w-24 h-24 sm:w-40 sm:h-40 bg-gray-300 rounded-xl" />
+    <div className="flex-1 space-y-3">
+      <div className="h-5 bg-gray-300 rounded w-3/4" />
+      <div className="h-4 bg-gray-200 rounded w-full" />
+      <div className="h-4 bg-gray-200 rounded w-2/3" />
+      <div className="flex gap-2 mt-4 justify-end">
+        <div className="h-8 w-20 bg-gray-300 rounded" />
+        <div className="h-8 w-20 bg-gray-300 rounded" />
+      </div>
+    </div>
+  </div>
+);
+
 const CityGirlsPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const { cityName } = useParams(); // SEO slug (UI only)
+  const { cityName } = useParams(); // slug from URL
 
   const { cities, singleCity } = useSelector((state) => state.city);
-  const { cityGirls = [], loading } = useSelector((s) => s.girls);
+  const { cityGirls = [], loading } = useSelector((state) => state.girls);
 
-  // cityId comes from navigate state
-  const cityId = location.state?.cityId || null;
+  const cityIdFromState = location.state?.cityId || null;
 
   const queryParams = new URLSearchParams(location.search);
   const subCity = queryParams.get("subCity");
 
+  const [resolvedCityId, setResolvedCityId] = useState(null);
+  const [pageLoading, setPageLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
 
-  /* ---------------- FETCH DATA ---------------- */
+  /* ---------------- FETCH ALL CITIES ---------------- */
   useEffect(() => {
     dispatch(getCitiesThunk());
   }, [dispatch]);
 
+  /* ---------------- RESOLVE CITY ID (FAST) ---------------- */
   useEffect(() => {
-    if (!cityId) return;
-    dispatch(getCityByIdThunk(cityId));
-    dispatch(getGirlsByCityThunk(cityId));
-  }, [cityId, dispatch]);
+    if (cityIdFromState) {
+      setResolvedCityId(cityIdFromState);
+      return;
+    }
+
+    if (!cityName || !cities?.length) return;
+
+    const normalize = (str = "") =>
+      str.toLowerCase().replace(/\s+/g, "-");
+
+    const matchedCity = cities.find(
+      (c) =>
+        normalize(c.mainCity) === normalize(cityName) ||
+        normalize(c.name) === normalize(cityName)
+    );
+
+    if (matchedCity?._id) {
+      setResolvedCityId(matchedCity._id);
+    }
+  }, [cityIdFromState, cityName, cities]);
+
+  /* ---------------- FETCH CITY + GIRLS ASAP ---------------- */
+  useEffect(() => {
+    if (!resolvedCityId) return;
+
+    setPageLoading(true);
+
+    Promise.all([
+      dispatch(getCityByIdThunk(resolvedCityId)),
+      dispatch(getGirlsByCityThunk(resolvedCityId)),
+    ]).finally(() => {
+      setPageLoading(false);
+    });
+  }, [resolvedCityId, dispatch]);
 
   /* ---------------- HELPERS ---------------- */
   const replaceCityName = (text = "", name = "") =>
@@ -356,19 +445,40 @@ const CityGirlsPage = () => {
     cityObj?.state?.name ||
     "";
 
-  /* -------- FIXED: HEADING & SUBDESCRIPTION -------- */
+  /* ---------------- CONTENT ---------------- */
   const cityHeading =
     cityObj?.heading ||
-    `Enjoy your private moments with our beautiful ${finalName} call girls`;
+    `Enjoy your private moments with our beautiful {{cityName}} call girls`;
 
   const citySubDescription =
     cityObj?.subDescription ||
-    `One of the top classified advertisement websites for escort services in ${finalName}.`;
+    `One of the top classified advertisement websites for escort services in {{cityName}}.`;
 
   const finalDescription =
     matchedLocalArea?.description ||
     cityObj?.description ||
     `<p>No description available for <strong>${finalName}</strong>.</p>`;
+
+  /* ---------------- SEO ---------------- */
+  useEffect(() => {
+    if (!finalName) return;
+
+    const seoTitle = replaceCityName(cityHeading, finalName);
+    const seoDescription = replaceCityName(
+      citySubDescription,
+      finalName
+    ).replace(/<[^>]*>?/gm, "");
+
+    document.title = seoTitle;
+
+    let metaDesc = document.querySelector("meta[name='description']");
+    if (!metaDesc) {
+      metaDesc = document.createElement("meta");
+      metaDesc.setAttribute("name", "description");
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute("content", seoDescription);
+  }, [finalName, cityHeading, citySubDescription]);
 
   const showRightSidebar = searchText.trim() === "";
 
@@ -382,14 +492,9 @@ const CityGirlsPage = () => {
         {/* -------- BREADCRUMB -------- */}
         <div className="bg-gray-50 py-3 mt-6 rounded-md px-4 flex flex-col sm:flex-row sm:justify-between gap-3 shadow-sm">
           <div className="text-sm text-gray-600 flex items-center gap-1 flex-wrap">
-            <span className="text-[#C2185B] font-semibold cursor-pointer">
-              Home
-            </span>
+            <span className="text-[#C2185B] font-semibold">Home</span>
             <span>/</span>
-            <span className="text-[#C2185B] font-semibold cursor-pointer">
-              Call-Girls
-            </span>
-
+            <span className="text-[#C2185B] font-semibold">Call-Girls</span>
             {finalName && (
               <>
                 <span>/</span>
@@ -398,7 +503,6 @@ const CityGirlsPage = () => {
                 </span>
               </>
             )}
-
             {subCity && (
               <>
                 <span>/</span>
@@ -418,24 +522,20 @@ const CityGirlsPage = () => {
               onChange={(e) => setSearchText(e.target.value)}
               className="border border-gray-300 rounded-l-full px-4 py-2 w-full sm:w-72 text-sm"
             />
-            <button className="bg-[#C2185B] px-4 rounded-r-full flex items-center text-white">
+            <button className="bg-[#C2185B] px-4 rounded-r-full text-white">
               <CiSearch className="text-2xl" />
             </button>
           </div>
         </div>
 
-        {/* -------- PAGE HEADING (FIXED) -------- */}
+        {/* -------- PAGE HEADING -------- */}
         <div className="pt-10 text-center max-w-7xl mx-auto">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-[#B30059]">
-            Enjoy your private Moments with our Beautiful{" "}
-            <span className="text-[#C2185B] capitalize">{finalName} Call Girls</span>
+            {replaceCityName(cityHeading, finalName)}
           </h1>
-
-          {citySubDescription && (
-            <p className="text-gray-700 max-w-7xl mx-auto mt-4 text-[15px] leading-relaxed">
-              {replaceCityName(citySubDescription, finalName)}
-            </p>
-          )}
+          <p className="text-gray-700 mt-4 text-[15px]">
+            {replaceCityName(citySubDescription, finalName)}
+          </p>
         </div>
 
         {/* -------- CONTENT -------- */}
@@ -443,9 +543,13 @@ const CityGirlsPage = () => {
 
           {/* -------- GIRL LIST -------- */}
           <div>
-            {loading ? (
-              <p className="text-center py-10">Loading...</p>
-            ) : filteredGirls.length > 0 ? (
+            {pageLoading ? (
+              <div className="space-y-5">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <GirlCardSkeleton key={i} />
+                ))}
+              </div>
+            ) : filteredGirls.length ? (
               <div className="space-y-5">
                 {filteredGirls.map((girl) => {
                   const wp = girl.whatsappNumber || cityObj?.whatsappNumber;
@@ -467,37 +571,34 @@ const CityGirlsPage = () => {
                       <img
                         src={girl.imageUrl}
                         alt={girl.name}
+                        loading="lazy"
                         className="w-24 h-24 sm:w-40 sm:h-40 object-cover rounded-xl"
                       />
 
                       <div className="flex flex-col justify-between w-full">
-
-                        {/* HEADING */}
-                        <h3 className="text-[20px] font-bold text-[#B30059] leading-tight">
-                          {replaceCityName(girl.heading, finalName)}
-                        </h3>
-
-                        {/* DESCRIPTION */}
-                        <p className="text-[15px] text-gray-700 mt-1 leading-snug line-clamp-2">
-                          {replaceCityName(girl.description, finalName)}
-                        </p>
-
-                        {/* AGE + CATEGORY ROW */}
-                        <div className="flex flex-wrap gap-3 text-[15px] mt-3 font-semibold text-[#B30059]">
-                          {girl.age && <span>{girl.age} Years</span>}
-                          <span>|</span>
-                          <span>Call Girls</span>
-                          <span>|</span>
-                          <span>{finalName}</span>
+                        <div>
+                          <h3 className="text-[20px] font-bold text-[#B30059]">
+                            {replaceCityName(girl.heading, finalName)}
+                          </h3>
+                          <p className="text-[15px] text-gray-700 mt-1 line-clamp-2">
+                            {replaceCityName(girl.description, finalName)}
+                          </p>
+                          <div className="flex flex-wrap gap-3 text-[15px] mt-3 font-semibold text-[#B30059]">
+                            {girl.age && <span>{girl.age} Years</span>}
+                            <span>|</span>
+                            <span>Call Girls</span>
+                            <span>|</span>
+                            <span>{finalName}</span>
+                          </div>
                         </div>
 
                         <div className="flex gap-3 mt-4 justify-end">
                           {wp && (
                             <a
                               onClick={(e) => e.stopPropagation()}
+                              href={createWhatsAppURL(finalName, wp)}
                               target="_blank"
                               rel="noreferrer"
-                              href={createWhatsAppURL(finalName, wp)}
                               className="px-3 py-2 bg-[#25D366] text-white text-xs rounded-md"
                             >
                               WhatsApp
@@ -532,7 +633,6 @@ const CityGirlsPage = () => {
                 <h3 className="text-center bg-[#B30059] text-white py-2 rounded-lg text-sm font-bold">
                   Ads in {cityObj?.state?.name}
                 </h3>
-
                 <ul className="mt-4 text-sm text-gray-700">
                   {(cityObj?.localAreas || []).map((area) => (
                     <li key={area._id} className="border-b py-2">
@@ -554,7 +654,7 @@ const CityGirlsPage = () => {
         />
       </div>
 
-      <CitySection loading={loading} cities={cities} />
+      <CitySection loading={pageLoading} cities={cities} />
       <Footer />
     </>
   );

@@ -9,12 +9,12 @@ const AdminProtectedRoute = ({ children }) => {
   if (!token) {
     return <Navigate to="/login" replace />;
   }
-<ToastContainer
-        position="top-right"
-        autoClose={2500}
-        pauseOnHover
-        theme="colored"
-      />
+  <ToastContainer
+    position="top-right"
+    autoClose={2500}
+    pauseOnHover
+    theme="colored"
+  />
 
   return children;
 };
