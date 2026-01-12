@@ -459,7 +459,13 @@ const CityGirlsPage = () => {
     cityObj?.description ||
     `<p>No description available for <strong>${finalName}</strong>.</p>`;
 
-  /* ---------------- SEO ---------------- */
+  /* ---------------- CANONICAL URL ---------------- */
+  const getCanonicalURL = () => {
+    const baseUrl = "https://girlswithwine.in"; // 🔴 apna domain
+    return `${baseUrl}/call-girls/${cityName || ""}`;
+  };
+
+  /* ---------------- SEO (TITLE + META + CANONICAL) ---------------- */
   useEffect(() => {
     if (!finalName) return;
 
@@ -469,8 +475,10 @@ const CityGirlsPage = () => {
       finalName
     ).replace(/<[^>]*>?/gm, "");
 
+    // Title
     document.title = seoTitle;
 
+    // Meta Description
     let metaDesc = document.querySelector("meta[name='description']");
     if (!metaDesc) {
       metaDesc = document.createElement("meta");
@@ -478,7 +486,17 @@ const CityGirlsPage = () => {
       document.head.appendChild(metaDesc);
     }
     metaDesc.setAttribute("content", seoDescription);
-  }, [finalName, cityHeading, citySubDescription]);
+
+    // Canonical Link
+    let canonical = document.querySelector("link[rel='canonical']");
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", getCanonicalURL());
+
+  }, [finalName, cityHeading, citySubDescription, cityName]);
 
   const showRightSidebar = searchText.trim() === "";
 
