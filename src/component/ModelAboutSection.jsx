@@ -59,9 +59,7 @@ const ModelAboutSection = () => {
               alt="Ozge Pose"
               className="w-full h-[520px] object-cover rounded-xl shadow-xl"
             />
-            <button className="absolute left-4 top-1/2 -translate-y-1/2 bg-[#f6e7f0] hover:bg-white text-[#D79CC3] text-xl font-bold px-5 py-3 rounded-full border-2 border-[#D79CC3] shadow-md transition">
-              ←
-            </button>
+           
           </div>
 
           {/* Right Text Info */}
@@ -99,12 +97,7 @@ const ModelAboutSection = () => {
               </div>
             </div>
 
-            {/* Button */}
-            <div className="mt-10 flex justify-end">
-              <button className="bg-[#3D0C55] hover:bg-[#2a073e] text-white font-bold text-lg px-8 py-4 rounded-full shadow-lg transition">
-                →
-              </button>
-            </div>
+          
           </div>
         </div>
       </div>

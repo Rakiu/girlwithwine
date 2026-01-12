@@ -426,8 +426,9 @@ const CityGirlsPage = () => {
 
         {/* -------- PAGE HEADING (FIXED) -------- */}
         <div className="pt-10 text-center max-w-7xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-[#B30059] leading-tight">
-            {replaceCityName(cityHeading, finalName)}
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-[#B30059]">
+            Enjoy your private Moments with our Beautiful{" "}
+            <span className="text-[#C2185B] capitalize">{finalName} Call Girls</span>
           </h1>
 
           {citySubDescription && (
@@ -470,15 +471,19 @@ const CityGirlsPage = () => {
                       />
 
                       <div className="flex flex-col justify-between w-full">
-                        <h3 className="text-[20px] font-bold text-[#B30059]">
+
+                        {/* HEADING */}
+                        <h3 className="text-[20px] font-bold text-[#B30059] leading-tight">
                           {replaceCityName(girl.heading, finalName)}
                         </h3>
 
-                        <p className="text-[15px] text-gray-700 mt-1 line-clamp-2">
+                        {/* DESCRIPTION */}
+                        <p className="text-[15px] text-gray-700 mt-1 leading-snug line-clamp-2">
                           {replaceCityName(girl.description, finalName)}
                         </p>
 
-                        <div className="flex gap-3 text-[14px] mt-3 font-semibold text-[#B30059]">
+                        {/* AGE + CATEGORY ROW */}
+                        <div className="flex flex-wrap gap-3 text-[15px] mt-3 font-semibold text-[#B30059]">
                           {girl.age && <span>{girl.age} Years</span>}
                           <span>|</span>
                           <span>Call Girls</span>
