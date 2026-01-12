@@ -8,11 +8,9 @@ import { getCitiesThunk, updateCityThunk } from "../store/slices/citySlice";
 import { getStatesThunk } from "../store/slices/stateSlice";
 import RichTextEditor from "./RichTextEditor";
 
-// -------------------------------------------------------
-// SKELETON COMPONENT
-// -------------------------------------------------------
+/* ---------------- SKELETON ---------------- */
 const SkeletonBox = ({ height = "h-10" }) => (
-  <div className={`bg-gray-200 rounded-lg animate-pulse ${height}`}></div>
+  <div className={`bg-gray-200 rounded-lg animate-pulse ${height}`} />
 );
 
 const EditCity = () => {
@@ -20,13 +18,15 @@ const EditCity = () => {
   const navigate = useNavigate();
   const { cityId } = useParams();
 
-  // REMOVE Redux loading → use your own
-  const [loading, setLoading] = useState(false);
-
   const { cities } = useSelector((s) => s.city);
   const { states } = useSelector((s) => s.states);
 
+  const [loading, setLoading] = useState(false);
+  const [initialLoaded, setInitialLoaded] = useState(false);
+
   const [form, setForm] = useState({
+    heading: "",
+    subDescription: "",
     mainCity: "",
     state: "",
     whatsappNumber: "",
@@ -41,81 +41,82 @@ const EditCity = () => {
     { name: "", description: "" },
   ]);
 
-  const [initialLoaded, setInitialLoaded] = useState(false);
-
-  // Load states & cities
+  /* ---------------- LOAD DATA ---------------- */
   useEffect(() => {
     dispatch(getStatesThunk());
     dispatch(getCitiesThunk());
-  }, []);
+  }, [dispatch]);
 
-  // Load city details
+  /* ---------------- LOAD CITY ---------------- */
   useEffect(() => {
-    if (cities.length > 0) {
-      const city = cities.find((c) => c._id === cityId);
-      if (!city) return;
+    if (!cities.length) return;
 
-      setForm({
-        mainCity: city.mainCity || "",
-        state: city.state?._id || "",
-        whatsappNumber: city.whatsappNumber || "",
-        phoneNumber: city.phoneNumber || "",
-        description: city.description || "",
-      });
+    const city = cities.find((c) => c._id === cityId);
+    if (!city) return;
 
-      setPreviewImage(city.imageUrl || null);
+    setForm({
+      heading: city.heading || "",
+      subDescription: city.subDescription || "",
+      mainCity: city.mainCity || "",
+      state: city.state?._id || "",
+      whatsappNumber: city.whatsappNumber || "",
+      phoneNumber: city.phoneNumber || "",
+      description: city.description || "",
+    });
 
-      if (city.localAreas?.length > 0) {
-        setLocalAreas(
-          city.localAreas.map((a) => ({
-            name: a.name || "",
-            description: a.description || "",
-          }))
-        );
-      }
+    setPreviewImage(city.imageUrl || null);
 
-      setInitialLoaded(true);
+    if (city.localAreas?.length) {
+      setLocalAreas(
+        city.localAreas.map((a) => ({
+          name: a.name || "",
+          description: a.description || "",
+        }))
+      );
     }
+
+    setInitialLoaded(true);
   }, [cities, cityId]);
 
-  const handleInput = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((p) => ({ ...p, [name]: value }));
   };
 
-  // Submit Handler with LOCAL LOADING
+  /* ---------------- SUBMIT ---------------- */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.state) return toast.error("Please select a State!");
+    if (!form.state) return toast.error("Please select a State");
 
-    // before API call → loading true
     setLoading(true);
 
     const fd = new FormData();
+    fd.append("heading", form.heading.trim());
+    fd.append("subDescription", form.subDescription.trim());
     fd.append("mainCity", form.mainCity.trim());
     fd.append("state", form.state);
     fd.append("whatsappNumber", form.whatsappNumber);
     fd.append("phoneNumber", form.phoneNumber);
     fd.append("description", form.description);
+    fd.append("localAreas", JSON.stringify(localAreas));
     if (image) fd.append("image", image);
 
-    fd.append("localAreas", JSON.stringify(localAreas));
+    const res = await dispatch(
+      updateCityThunk({ cityId, formData: fd })
+    );
 
-    const res = await dispatch(updateCityThunk({ cityId, formData: fd }));
-
-    // after API call → loading false
     setLoading(false);
 
     if (res.meta.requestStatus === "fulfilled") {
-      toast.success("City updated!");
+      toast.success("City updated successfully!");
       navigate("/admin/all-cities");
     } else {
       toast.error("Failed to update city");
     }
   };
 
-  // Local Area Handlers
+  /* ---------------- LOCAL AREAS ---------------- */
   const updateLocalArea = (i, key, value) => {
     const arr = [...localAreas];
     arr[i][key] = value;
@@ -126,113 +127,115 @@ const EditCity = () => {
     setLocalAreas([...localAreas, { name: "", description: "" }]);
 
   const removeLocalArea = (i) =>
-    setLocalAreas(localAreas.filter((_, index) => index !== i));
+    setLocalAreas(localAreas.filter((_, idx) => idx !== i));
 
   return (
     <AdminLayout>
-      <div className="bg-white p-8 rounded-2xl shadow-xl border max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-xl border">
 
-        {/* HEADER */}
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-800">Edit City</h2>
-          <button
-            onClick={() => navigate("/admin/all-cities")}
-            className="px-5 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 border cursor-pointer"
-          >
-            ← Back
-          </button>
-        </div>
-
-        {/* SKELETON WHEN DATA IS NOT LOADED */}
-        {!initialLoaded ? (
-          <div className="space-y-6">
-            <SkeletonBox height="h-12" />
-            <SkeletonBox height="h-12" />
-            <SkeletonBox height="h-12" />
-            <SkeletonBox height="h-40" />
+          {/* HEADER */}
+          <div className="flex flex-col sm:flex-row justify-between gap-4 mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+              Edit City
+            </h2>
+            <button
+              onClick={() => navigate("/admin/all-cities")}
+              className="px-5 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 border"
+            >
+              ← Back
+            </button>
           </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-10">
 
-            {/* BASIC FIELDS */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {!initialLoaded ? (
+            <div className="space-y-6">
+              <SkeletonBox height="h-12" />
+              <SkeletonBox height="h-12" />
+              <SkeletonBox height="h-40" />
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-12">
 
-              <Input
-                label="Main City Title Name"
-                name="mainCity"
-                value={form.mainCity}
-                onChange={handleInput}
-                placeholder="Enter main city"
-              />
+              {/* BASIC INFO */}
+              <Section title="Basic Information">
 
-              {/* STATE SELECT */}
-              <div className="flex flex-col gap-2">
-                <label className="font-semibold text-gray-700">
-                  Select State *
-                </label>
+                <Input
+                  label="City Heading"
+                  name="heading"
+                  value={form.heading}
+                  onChange={handleChange}
+                />
 
-                <select
-                  name="state"
-                  value={form.state}
-                  onChange={handleInput}
-                  className="border border-gray-300 px-4 py-3 rounded-lg bg-white cursor-pointer"
-                >
-                  <option value="">-- Select State --</option>
-                  {states?.map((s) => (
-                    <option key={s._id} value={s._id}>
-                      {s.name?.charAt(0).toUpperCase() + s.name?.slice(1)}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                <Textarea
+                  label="Sub Description"
+                  rows={3}
+                  name="subDescription"
+                  value={form.subDescription}
+                  onChange={handleChange}
+                />
 
-              <Input
-                label="WhatsApp Number"
-                name="whatsappNumber"
-                value={form.whatsappNumber}
-                onChange={handleInput}
-              />
+                <Grid>
+                  <Input
+                    label="Main City Title Name"
+                    name="mainCity"
+                    value={form.mainCity}
+                    onChange={handleChange}
+                  />
 
-              <Input
-                label="Phone Number"
-                name="phoneNumber"
-                value={form.phoneNumber}
-                onChange={handleInput}
-              />
+                  <Select
+                    label="Select State *"
+                    name="state"
+                    value={form.state}
+                    onChange={handleChange}
+                  >
+                    <option value="">-- Select State --</option>
+                    {states?.map((s) => (
+                      <option key={s._id} value={s._id}>
+                        {s.name.charAt(0).toUpperCase() + s.name.slice(1)}
+                      </option>
+                    ))}
+                  </Select>
+                </Grid>
 
-              {/* IMAGE UPLOAD */}
-              <div className="flex flex-col gap-2 md:col-span-2">
-                <label className="font-semibold text-gray-700">City Image</label>
+                <Grid>
+                  <Input
+                    label="WhatsApp Number"
+                    name="whatsappNumber"
+                    value={form.whatsappNumber}
+                    onChange={handleChange}
+                  />
 
-                <input
-                  type="file"
+                  <Input
+                    label="Phone Number"
+                    name="phoneNumber"
+                    value={form.phoneNumber}
+                    onChange={handleChange}
+                  />
+                </Grid>
+
+                <FileInput
+                  label="City Image"
                   onChange={(e) => {
                     setImage(e.target.files[0]);
                     setPreviewImage(URL.createObjectURL(e.target.files[0]));
                   }}
-                  className="border border-gray-300 px-4 py-3 rounded-lg bg-gray-50 cursor-pointer"
                 />
 
                 {previewImage && (
                   <img
                     src={previewImage}
-                    className="w-48 h-32 object-cover rounded shadow mt-3"
+                    alt="preview"
+                    className="w-48 h-32 object-cover rounded-lg shadow"
                   />
                 )}
-              </div>
-            </div>
+              </Section>
 
-            {/* LOCAL AREAS */}
-            <div>
-              <label className="font-semibold text-gray-700 text-lg">
-                Local Areas
-              </label>
-
-              <div className="mt-4 space-y-4">
+              {/* LOCAL AREAS */}
+              <Section title="Local Areas">
                 {localAreas.map((area, i) => (
                   <div
                     key={i}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-50 p-5 rounded-xl border"
+                    className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl border mb-4"
                   >
                     <Input
                       label="Local Area Name"
@@ -241,7 +244,6 @@ const EditCity = () => {
                         updateLocalArea(i, "name", e.target.value)
                       }
                     />
-
                     <Input
                       label="Local Area Description"
                       value={area.description}
@@ -249,12 +251,11 @@ const EditCity = () => {
                         updateLocalArea(i, "description", e.target.value)
                       }
                     />
-
                     {i > 0 && (
                       <button
                         type="button"
                         onClick={() => removeLocalArea(i)}
-                        className="text-red-600 cursor-pointer"
+                        className="text-red-600 text-sm"
                       >
                         Remove
                       </button>
@@ -265,48 +266,40 @@ const EditCity = () => {
                 <button
                   type="button"
                   onClick={addLocalArea}
-                  className="bg-green-600 text-white px-4 py-2 rounded-lg cursor-pointer"
+                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
                 >
                   + Add Local Area
                 </button>
+              </Section>
+
+              {/* DESCRIPTION */}
+              <Section title="Description">
+                <div className="border rounded-xl p-2">
+                  <RichTextEditor
+                    value={form.description}
+                    onChange={(val) =>
+                      setForm((p) => ({ ...p, description: val }))
+                    }
+                  />
+                </div>
+              </Section>
+
+              {/* SUBMIT */}
+              <div className="flex justify-end">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-3 rounded-xl text-lg shadow-lg flex items-center gap-3 disabled:opacity-50"
+                >
+                  {loading && (
+                    <span className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full" />
+                  )}
+                  {loading ? "Updating..." : "Update City"}
+                </button>
               </div>
-            </div>
-
-            {/* DESCRIPTION */}
-            <div>
-              <label className="font-semibold text-gray-700 text-lg">
-                Description
-              </label>
-
-              <div className="border rounded-xl shadow-sm p-2 mt-2 bg-white">
-                <RichTextEditor
-                  value={form.description}
-                  onChange={(val) =>
-                    setForm((prev) => ({ ...prev, description: val }))
-                  }
-                />
-              </div>
-            </div>
-
-            {/* UPDATE BUTTON WITH SPINNER (LOCAL LOADING) */}
-            <div className="flex mb-10">
-              <button
-                type="submit"
-                disabled={loading}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-3 rounded-xl text-lg shadow-lg cursor-pointer disabled:opacity-50 flex items-center gap-3"
-              >
-                {loading ? (
-                  <>
-                    <span className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></span>
-                    Updating...
-                  </>
-                ) : (
-                  "Update City"
-                )}
-              </button>
-            </div>
-          </form>
-        )}
+            </form>
+          )}
+        </div>
       </div>
     </AdminLayout>
   );
@@ -314,15 +307,60 @@ const EditCity = () => {
 
 export default EditCity;
 
-// -----------------------------------------
-// INPUT COMPONENT
-// -----------------------------------------
+/* ---------------- UI HELPERS ---------------- */
+
+const Section = ({ title, children }) => (
+  <div className="space-y-6">
+    <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
+    {children}
+  </div>
+);
+
+const Grid = ({ children }) => (
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {children}
+  </div>
+);
+
 const Input = ({ label, ...props }) => (
   <div className="flex flex-col gap-2">
     <label className="font-semibold text-gray-700">{label}</label>
     <input
       {...props}
-      className="w-full border border-gray-300 px-4 py-3 rounded-lg bg-white focus:ring-2 focus:ring-blue-400 outline-none cursor-pointer"
+      className="w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
+    />
+  </div>
+);
+
+const Textarea = ({ label, ...props }) => (
+  <div className="flex flex-col gap-2">
+    <label className="font-semibold text-gray-700">{label}</label>
+    <textarea
+      {...props}
+      className="w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none resize-none"
+    />
+  </div>
+);
+
+const Select = ({ label, children, ...props }) => (
+  <div className="flex flex-col gap-2">
+    <label className="font-semibold text-gray-700">{label}</label>
+    <select
+      {...props}
+      className="w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none cursor-pointer"
+    >
+      {children}
+    </select>
+  </div>
+);
+
+const FileInput = ({ label, ...props }) => (
+  <div className="flex flex-col gap-2">
+    <label className="font-semibold text-gray-700">{label}</label>
+    <input
+      type="file"
+      {...props}
+      className="w-full border px-4 py-3 rounded-lg bg-gray-50"
     />
   </div>
 );
