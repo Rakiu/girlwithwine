@@ -4,14 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    tailwindcss(),
-  ],
-
-  optimizeDeps: {
-    include: ["jquery", "froala-editor", "react-froala-wysiwyg"],
-  },
+  plugins: [react(), tailwindcss()],
 
   resolve: {
     alias: {

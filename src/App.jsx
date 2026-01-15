@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
 import ScrollToTop from "./component/ScrollToTop";
@@ -20,9 +20,9 @@ import AddStateForm from "./component/AddStateForm";
 import StateList from "./component/StateList";
 import AllContactsList from "./component/AllContactsList";
 
-// ✅ LAZY LOADED PAGES
-const CityGirlsPage = lazy(() => import("./component/CityGirlsPage"));
-const GirlDetailsPage = lazy(() => import("./component/GirlDetailsPage"));
+// ✅ SEO PAGES (NOT LAZY)
+import CityGirlsPage from "./component/CityGirlsPage";
+import GirlDetailsPage from "./component/GirlDetailsPage";
 
 function App() {
   const location = useLocation();
@@ -31,106 +31,102 @@ function App() {
     <div className="w-full">
       <ScrollToTop />
 
-      {/* ✅ Suspense MUST Wrap Routes */}
-      <Suspense fallback={<div className="text-center mt-20 text-xl">Loading...</div>}>
-        <Routes key={location.pathname}>
+      <Routes key={location.pathname}>
+        <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<ContactPage />} />
 
-          <Route path="/" element={<Home />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/admin/login" element={<LoginPage />} />
+        {/* ✅ SEO ROUTES */}
+        <Route path="/city/:cityName" element={<CityGirlsPage />} />
+        <Route path="/girl/:girlName" element={<GirlDetailsPage />} />
 
-          {/* ✅ LAZY ROUTES */}
-          <Route path="/city/:cityName" element={<CityGirlsPage />} />
-          <Route path="/girl/:girlName" element={<GirlDetailsPage />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/terms" element={<TermsAndConditions />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
 
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/terms" element={<TermsAndConditions />} />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
+        {/* ✅ ADMIN ROUTES */}
+        <Route path="/admin/login" element={<LoginPage />} />
 
-          {/* ✅ ADMIN ROUTES */}
-          <Route
-            path="/admin/all-state"
-            element={
-              <AdminProtectedRoute>
-                <StateList />
-              </AdminProtectedRoute>
-            }
-          />
+        <Route
+          path="/admin/all-state"
+          element={
+            <AdminProtectedRoute>
+              <StateList />
+            </AdminProtectedRoute>
+          }
+        />
 
-          <Route
-            path="/admin/add-state"
-            element={
-              <AdminProtectedRoute>
-                <AddStateForm />
-              </AdminProtectedRoute>
-            }
-          />
+        <Route
+          path="/admin/add-state"
+          element={
+            <AdminProtectedRoute>
+              <AddStateForm />
+            </AdminProtectedRoute>
+          }
+        />
 
-          <Route
-            path="/admin/all-cities"
-            element={
-              <AdminProtectedRoute>
-                <CityList />
-              </AdminProtectedRoute>
-            }
-          />
+        <Route
+          path="/admin/all-cities"
+          element={
+            <AdminProtectedRoute>
+              <CityList />
+            </AdminProtectedRoute>
+          }
+        />
 
-          <Route
-            path="/admin/edit-city/:cityId"
-            element={
-              <AdminProtectedRoute>
-                <EditCity />
-              </AdminProtectedRoute>
-            }
-          />
+        <Route
+          path="/admin/edit-city/:cityId"
+          element={
+            <AdminProtectedRoute>
+              <EditCity />
+            </AdminProtectedRoute>
+          }
+        />
 
-          <Route
-            path="/admin/create-city"
-            element={
-              <AdminProtectedRoute>
-                <AddCity />
-              </AdminProtectedRoute>
-            }
-          />
+        <Route
+          path="/admin/create-city"
+          element={
+            <AdminProtectedRoute>
+              <AddCity />
+            </AdminProtectedRoute>
+          }
+        />
 
-          <Route
-            path="/admin/model-girl"
-            element={
-              <AdminProtectedRoute>
-                <AllGirlsList />
-              </AdminProtectedRoute>
-            }
-          />
+        <Route
+          path="/admin/model-girl"
+          element={
+            <AdminProtectedRoute>
+              <AllGirlsList />
+            </AdminProtectedRoute>
+          }
+        />
 
-          <Route
-            path="/admin/add-girl"
-            element={
-              <AdminProtectedRoute>
-                <AddGirlForm />
-              </AdminProtectedRoute>
-            }
-          />
+        <Route
+          path="/admin/add-girl"
+          element={
+            <AdminProtectedRoute>
+              <AddGirlForm />
+            </AdminProtectedRoute>
+          }
+        />
 
-          <Route
-            path="/admin/edit-girl/:id"
-            element={
-              <AdminProtectedRoute>
-                <EditGirlForm />
-              </AdminProtectedRoute>
-            }
-          />
+        <Route
+          path="/admin/edit-girl/:id"
+          element={
+            <AdminProtectedRoute>
+              <EditGirlForm />
+            </AdminProtectedRoute>
+          }
+        />
 
-          <Route
-            path="/admin/all-contacts"
-            element={
-              <AdminProtectedRoute>
-                <AllContactsList />
-              </AdminProtectedRoute>
-            }
-          />
-
-        </Routes>
-      </Suspense>
+        <Route
+          path="/admin/all-contacts"
+          element={
+            <AdminProtectedRoute>
+              <AllContactsList />
+            </AdminProtectedRoute>
+          }
+        />
+      </Routes>
     </div>
   );
 }

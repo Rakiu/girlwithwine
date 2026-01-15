@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "generate:cities": "node scripts/generate-city-html.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -21,6 +22,7 @@
     "froala-editor": "^4.7.1",
     "jquery": "^3.7.1",
     "lucide-react": "^0.553.0",
+    "node-fetch": "^3.3.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-froala-wysiwyg": "^4.7.1",
@@ -29,7 +31,6 @@
     "react-router-dom": "^7.9.6",
     "react-toastify": "^11.0.5",
     "tailwindcss": "^4.1.17",
-    "vite-ssg": "^28.2.2",
     "yup": "^1.7.1"
   },
   "devDependencies": {
