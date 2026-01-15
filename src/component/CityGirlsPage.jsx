@@ -27,31 +27,44 @@
 // );
 
 // const CityGirlsPage = () => {
-//      const dispatch = useDispatch();
+//    const dispatch = useDispatch();
 //   const navigate = useNavigate();
 //   const location = useLocation();
 //   const { cityName } = useParams();
 
+//   /* ---------------- REDUX STATE ---------------- */
 //   const { cities, singleCity } = useSelector((state) => state.city);
 //   const { cityGirls = [] } = useSelector((state) => state.girls);
 
+//   /* ---------------- URL + STATE ---------------- */
 //   const cityIdFromState = location.state?.cityId || null;
 //   const queryParams = new URLSearchParams(location.search);
 //   const subCity = queryParams.get("subCity");
+//   const cityIdFromQuery = queryParams.get("cityId");
 
+//   /* ---------------- LOCAL STATE ---------------- */
 //   const [resolvedCityId, setResolvedCityId] = useState(null);
 //   const [pageLoading, setPageLoading] = useState(true);
 //   const [searchText, setSearchText] = useState("");
 
-//   /* ---------------- FETCH ALL CITIES ---------------- */
+//   /* =====================================================
+//      1️⃣ FETCH ALL CITIES (ONCE)
+//      ===================================================== */
 //   useEffect(() => {
 //     dispatch(getCitiesThunk());
 //   }, [dispatch]);
 
-//   /* ---------------- RESOLVE CITY ID ---------------- */
+//   /* =====================================================
+//      2️⃣ RESOLVE CITY ID (STATE → QUERY → NAME)
+//      ===================================================== */
 //   useEffect(() => {
 //     if (cityIdFromState) {
 //       setResolvedCityId(cityIdFromState);
+//       return;
+//     }
+
+//     if (cityIdFromQuery) {
+//       setResolvedCityId(cityIdFromQuery);
 //       return;
 //     }
 
@@ -69,9 +82,11 @@
 //     if (matchedCity?._id) {
 //       setResolvedCityId(matchedCity._id);
 //     }
-//   }, [cityIdFromState, cityName, cities]);
+//   }, [cityIdFromState, cityIdFromQuery, cityName, cities]);
 
-//   /* ---------------- FETCH CITY + GIRLS ---------------- */
+//   /* =====================================================
+//      3️⃣ FETCH CITY DETAILS + GIRLS
+//      ===================================================== */
 //   useEffect(() => {
 //     if (!resolvedCityId) return;
 
@@ -135,46 +150,17 @@
 //     cityObj?.description ||
 //     `<p>No description available for <strong>${finalName}</strong>.</p>`;
 
-  // /* =====================================================
-  //    ✅ FRONTEND SEO (TITLE + META + CANONICAL)
-  //    ===================================================== */
-  // if (typeof document !== "undefined" && finalName) {
-  //   const title = replaceCityName(cityHeading, finalName);
-  //   const description = replaceCityName(citySubDescription, finalName);
+//   const showRightSidebar = searchText.trim() === "";
 
-  //   document.title = title;
-
-  //   let meta = document.querySelector("meta[name='description']");
-  //   if (!meta) {
-  //     meta = document.createElement("meta");
-  //     meta.setAttribute("name", "description");
-  //     document.head.appendChild(meta);
-  //   }
-  //   meta.setAttribute("content", description);
-
-  //   let canonical = document.querySelector("link[rel='canonical']");
-  //   if (!canonical) {
-  //     canonical = document.createElement("link");
-  //     canonical.setAttribute("rel", "canonical");
-  //     document.head.appendChild(canonical);
-  //   }
-  //   canonical.setAttribute(
-  //     "href",
-  //     `https://girlswithwine.com/city/${cityName}`
-  //   );
-  // }
-
-  // const showRightSidebar = searchText.trim() === "";
-
-
-//   /* ---------------- UI ---------------- */
+//   /* =====================================================
+//      UI START
+//      ===================================================== */
 //   return (
 //     <>
 //       <Header />
 
 //       <div className="px-4 sm:px-6 lg:px-8">
-
-//         {/* BREADCRUMB */}
+//         {/* BREADCRUMB + SEARCH */}
 //         <div className="bg-gray-50 py-3 mt-6 rounded-md px-4 flex flex-col sm:flex-row sm:justify-between gap-3 shadow-sm">
 //           <div className="text-sm text-gray-600 flex items-center gap-1 flex-wrap">
 //             <span className="text-[#C2185B] font-semibold">Home</span>
@@ -198,7 +184,6 @@
 //             )}
 //           </div>
 
-//           {/* SEARCH */}
 //           <div className="flex w-full sm:w-auto">
 //             <input
 //               type="text"
@@ -223,9 +208,8 @@
 //           </p>
 //         </div>
 
-//         {/* CONTENT */}
+//         {/* CONTENT GRID */}
 //         <div className="max-w-7xl mx-auto mt-10 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
-
 //           {/* GIRLS LIST */}
 //           <div>
 //             {pageLoading ? (
@@ -268,13 +252,13 @@
 //                           <p className="text-[15px] text-gray-700 mt-1 line-clamp-2">
 //                             {replaceCityName(girl.description, finalName)}
 //                           </p>
-                          //  <div className="flex flex-wrap gap-3 text-[15px] mt-3 font-semibold text-[#B30059]">
-                          //   {girl.age && <span>{girl.age} Years</span>}
-                          //   <span>|</span>
-                          //   <span>Call Girls</span>
-                          //   <span>|</span>
-                          //   <span>{finalName}</span>
-                          // </div>
+//                            <div className="flex flex-wrap gap-3 text-[15px] mt-3 font-semibold text-[#B30059]">
+//                             {girl.age && <span>{girl.age} Years</span>}
+//                             <span>|</span>
+//                             <span>Call Girls</span>
+//                             <span>|</span>
+//                             <span>{finalName}</span>
+//                           </div>
 //                         </div>
 
 //                         <div className="flex gap-3 mt-4 justify-end">
@@ -348,6 +332,7 @@
 // export default CityGirlsPage;
 
 
+
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
@@ -408,19 +393,16 @@ const CityGirlsPage = () => {
      2️⃣ RESOLVE CITY ID (STATE → QUERY → NAME)
      ===================================================== */
   useEffect(() => {
-    // Priority 1: navigation state
     if (cityIdFromState) {
       setResolvedCityId(cityIdFromState);
       return;
     }
 
-    // Priority 2: query param
     if (cityIdFromQuery) {
       setResolvedCityId(cityIdFromQuery);
       return;
     }
 
-    // Priority 3: resolve from cityName
     if (!cityName || !cities?.length) return;
 
     const normalize = (str = "") =>
@@ -490,47 +472,14 @@ const CityGirlsPage = () => {
     cityObj?.state?.name ||
     "";
 
-  const cityHeading =
-    cityObj?.heading ||
-    "Call Girls in {{cityName}} – VIP Escort Service";
+  const cityHeading = cityObj?.heading
 
-  const citySubDescription =
-    cityObj?.subDescription ||
-    "Book premium call girls in {{cityName}}. 24/7 escort & VIP services available.";
+  const citySubDescription = cityObj?.subDescription 
 
   const finalDescription =
     matchedLocalArea?.description ||
     cityObj?.description ||
     `<p>No description available for <strong>${finalName}</strong>.</p>`;
-
-   /* =====================================================
-     ✅ FRONTEND SEO (TITLE + META + CANONICAL)
-     ===================================================== */
-  if (typeof document !== "undefined" && finalName) {
-    const title = replaceCityName(cityHeading, finalName);
-    const description = replaceCityName(citySubDescription, finalName);
-
-    document.title = title;
-
-    let meta = document.querySelector("meta[name='description']");
-    if (!meta) {
-      meta = document.createElement("meta");
-      meta.setAttribute("name", "description");
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute("content", description);
-
-    let canonical = document.querySelector("link[rel='canonical']");
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute(
-      "href",
-      `https://girlswithwine.com/city/${cityName}`
-    );
-  }
 
   const showRightSidebar = searchText.trim() === "";
 
@@ -634,7 +583,7 @@ const CityGirlsPage = () => {
                           <p className="text-[15px] text-gray-700 mt-1 line-clamp-2">
                             {replaceCityName(girl.description, finalName)}
                           </p>
-                           <div className="flex flex-wrap gap-3 text-[15px] mt-3 font-semibold text-[#B30059]">
+                          <div className="flex flex-wrap gap-3 text-[15px] mt-3 font-semibold text-[#B30059]">
                             {girl.age && <span>{girl.age} Years</span>}
                             <span>|</span>
                             <span>Call Girls</span>

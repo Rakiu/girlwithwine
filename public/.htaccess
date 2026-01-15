@@ -1,15 +1,11 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteBase /
 
-  #  JS, CSS, images ko direct serve karo
-  RewriteCond %{REQUEST_FILENAME} -f
-  RewriteRule ^ - [L]
-
-  #  folders ko direct allow karo
+  # existing files / folders ko chhedo mat
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  #  Sirf SPA routes ko index.html
+  # React SPA fallback
   RewriteRule ^ index.html [L]
 </IfModule>

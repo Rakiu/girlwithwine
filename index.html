@@ -1,20 +1,35 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/icon.png" />
+
+  <!-- HASH → NORMAL URL FIX -->
+  <script>
+    (function () {
+      if (location.hash.startsWith("#/")) {
+        location.replace(location.hash.slice(1));
+      }
+    })();
+  </script>
+
+  <link rel="icon" href="/icon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- JODIT CORRECT CDN -->
+
+  <title>Girls With Wine</title>
+  <meta
+    name="description"
+    content="Book verified independent call girls & VIP escort services across India."
+  />
+
+  <!-- JODIT -->
   <link rel="stylesheet" href="https://unpkg.com/jodit@4.7.6/es2021/jodit.min.css" />
   <script src="https://unpkg.com/jodit@4.7.6/es2021/jodit.min.js"></script>
-  <title>Girls With Wine</title>
 </head>
 
 <body>
   <div id="root"></div>
+
+  <!-- ✅ DEV ENTRY (Vite WILL REWRITE THIS IN BUILD) -->
   <script type="module" src="/src/main.jsx"></script>
 </body>
-
 </html>
