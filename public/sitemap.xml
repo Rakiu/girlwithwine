@@ -1,0 +1,49 @@
+<urlset 
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+  http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://girlswithwine.com/</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- City Pages -->
+  <url><loc>https://girlswithwine.com/city/jaipur</loc></url>
+  <url><loc>https://girlswithwine.com/city/ludhiana</loc></url>
+  <url><loc>https://girlswithwine.com/city/jalandhar</loc></url>
+  <url><loc>https://girlswithwine.com/city/nainital</loc></url>
+  <url><loc>https://girlswithwine.com/city/shimla</loc></url>
+  <url><loc>https://girlswithwine.com/city/manali</loc></url>
+  <url><loc>https://girlswithwine.com/city/amritsar</loc></url>
+  <url><loc>https://girlswithwine.com/city/sonipat</loc></url>
+  <url><loc>https://girlswithwine.com/city/panipat</loc></url>
+  <url><loc>https://girlswithwine.com/city/faridabad</loc></url>
+  <url><loc>https://girlswithwine.com/city/delhi</loc></url>
+  <url><loc>https://girlswithwine.com/city/ahmedabad</loc></url>
+  <url><loc>https://girlswithwine.com/city/chandigarh</loc></url>
+  <url><loc>https://girlswithwine.com/city/hyderabad</loc></url>
+  <url><loc>https://girlswithwine.com/city/mumbai</loc></url>
+  <url><loc>https://girlswithwine.com/city/bangalore</loc></url>
+  <url><loc>https://girlswithwine.com/city/kanpur</loc></url>
+  <url><loc>https://girlswithwine.com/city/lucknow</loc></url>
+  <url><loc>https://girlswithwine.com/city/jodhpur</loc></url>
+  <url><loc>https://girlswithwine.com/city/pune</loc></url>
+  <url><loc>https://girlswithwine.com/city/udaipur</loc></url>
+  <url><loc>https://girlswithwine.com/city/indore</loc></url>
+  <url><loc>https://girlswithwine.com/city/gurugram</loc></url>
+
+  <!-- Static Pages -->
+  <url><loc>https://girlswithwine.com/about</loc></url>
+  <url><loc>https://girlswithwine.com/professional-accounts</loc></url>
+  <url><loc>https://girlswithwine.com/terms</loc></url>
+  <url><loc>https://girlswithwine.com/privacy</loc></url>
+  <url><loc>https://girlswithwine.com/contact</loc></url>
+  <url><loc>https://girlswithwine.com/post-ad</loc></url>
+  <url><loc>https://girlswithwine.com/blog</loc></url>
+
+</urlset>

@@ -21,11 +21,14 @@ const Footer = () => {
 
                     {/* COLUMN 1 */}
                     <div className="pr-8">
-                        <img
+                        <Link to="/">
+                         <img
                             src={logo}
                             alt="Girls with Wine Logo"
                             className="w-60 object-contain mb-5"
                         />
+                        </Link>
+                       
 
                         <p className="text-[15px] leading-relaxed opacity-90 max-w-sm">
                             The number 1 website for Adult ADS in India for Female Escorts
@@ -33,13 +36,13 @@ const Footer = () => {
                         </p>
 
                         {/* SOCIAL ICONS */}
-                        <div className="flex items-center gap-5 mt-7">
+                        {/* <div className="flex items-center gap-5 mt-7">
                             <FaFacebookF className="text-xl cursor-pointer hover:text-gray-300" />
                             <FaTwitter className="text-xl cursor-pointer hover:text-gray-300" />
                             <FaYoutube className="text-xl cursor-pointer hover:text-gray-300" />
                             <FaPinterestP className="text-xl cursor-pointer hover:text-gray-300" />
                             <FaLinkedinIn className="text-xl cursor-pointer hover:text-gray-300" />
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* COLUMN 2 */}
@@ -48,7 +51,7 @@ const Footer = () => {
                         <ul className="space-y-3 text-[15px] opacity-90">
                             <li><Link to="/" className="hover:text-gray-300">Home</Link></li>
                             <li><Link to="/about" className="hover:text-gray-300">About Us</Link></li>
-                            <li><Link to="/professional-accounts" className="hover:text-gray-300">Professional Accounts</Link></li>
+                            {/* <li><Link to="/professional-accounts" className="hover:text-gray-300">Professional Accounts</Link></li> */}
                         </ul>
                     </div>
 
@@ -68,7 +71,7 @@ const Footer = () => {
                         <ul className="space-y-3 text-[15px] opacity-90">
                             <li><Link to="/contact" className="hover:text-gray-300">Contact Us</Link></li>
                             <li><Link to="/post-ad" className="hover:text-gray-300">Post your Ad</Link></li>
-                            <li><Link to="/blog" className="hover:text-gray-300">Blog</Link></li>
+                            {/* <li><Link to="/blog" className="hover:text-gray-300">Blog</Link></li> */}
                         </ul>
 
                         <img
@@ -92,7 +95,7 @@ const Footer = () => {
                 {/* COPYRIGHT SECTION */}
                 <div className="mt-12 border-t border-white/20 pt-6 flex flex-col md:flex-row justify-between items-center gap-5">
                     <p className="text-sm opacity-70">
-                        © 2025 Girls with Wine — All Rights Reserved
+                        © {new Date().getFullYear()} Girls with Wine — All Rights Reserved
                     </p>
 
                     <button className="flex items-center gap-2 bg-pink-700 hover:bg-pink-600 px-5 py-2 rounded-full text-sm font-medium">

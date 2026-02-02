@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://girlswithwine.com/sitemap.xml
