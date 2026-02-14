@@ -23,6 +23,7 @@ import AllContactsList from "./component/AllContactsList";
 // ✅ SEO PAGES (NOT LAZY)
 import CityGirlsPage from "./component/CityGirlsPage";
 import GirlDetailsPage from "./component/GirlDetailsPage";
+import GirlsWithWineLanding from "./pages/GirlsWithWineLanding";
 
 function App() {
   const location = useLocation();
@@ -34,6 +35,7 @@ function App() {
       <Routes key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<ContactPage />} />
+         {/* <Route path="/landing" element={<GirlsWithWineLanding />} /> */}
 
         {/* ✅ SEO ROUTES */}
         <Route path="/city/:cityName" element={<CityGirlsPage />} />

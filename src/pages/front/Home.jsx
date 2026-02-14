@@ -11,6 +11,8 @@ import MostSearchedLocations from '../../component/MostSearchedLocations'
 import AboutEscortServices from '../../component/AboutEscortServices'
 import FinalThoughtsFAQ from '../../component/FinalThoughtsFAQ'
 import Footer from '../../component/common/Footer'
+import Faq from '../../component/Faq'
+import GirlsPrice from '../../component/GirlsPrice'
 
 const Home = () => {
     return (
@@ -25,6 +27,7 @@ const Home = () => {
             <ServicesSection />
             <ModelAboutSection />
             <MostSearchedLocations />
+            <GirlsPrice />
             <AboutAndReviewsSection />
           
             
